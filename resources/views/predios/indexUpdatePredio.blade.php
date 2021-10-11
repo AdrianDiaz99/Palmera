@@ -5,7 +5,7 @@
     <h1 class="text-center mb-5">Predios</h1>
 
     <div class="col-md-8 mx-auto bg-white p-3">
-        <form method="post" action="{{route('predios.store')}}">
+        <form method="post" action="{{action('PredioController@update',[$predio->id])}}">
             @csrf
 
             @if(\Session::has('message'))
@@ -18,7 +18,14 @@
 
             <div class="form-group">
               <label for="IdPredio">ID Predio</label>
-              <input type="text" class="form-control @error('IdPredio') is-invalid @enderror" id="IdPredio" name="IdPredio">
+              <input 
+                disabled 
+                value="{{$predio->id}}" 
+                type="text" 
+                class="form-control @error('IdPredio') is-invalid @enderror" 
+                id="IdPredio" 
+                name="IdPredio"
+            >
 
               @error('IdPredio')
                 <span class="invalid-feedback d_block" role="alert">
@@ -29,7 +36,8 @@
 
             <div class="form-group">
               <label for="FactorLluvia">Factor de lluvia</label>
-              <input 
+              <input
+                value="{{$predio->FactorLluvia}}"
                 type="text" 
                 class="form-control @error('FactorLluvia') is-invalid @enderror"  
                 id="FactorLluvia" 
@@ -47,7 +55,8 @@
             </div>
             <div class="form-group">
               <label for="FactorHumedad">Factor de humedad</label>
-              <input 
+              <input
+                value="{{$predio->FactorHumedad}}"
                 type="text" 
                 class="form-control @error('FactorHumedad') is-invalid @enderror" 
                 id="FactorHumedad" 
@@ -65,7 +74,8 @@
             </div>
             <div class="form-group">
               <label for="FactorResequedad">Factor de resequedad</label>
-              <input 
+              <input
+                value="{{$predio->FactorResequedad}}"
                 type="text" 
                 class="form-control @error('FactorResequedad') is-invalid @enderror" 
                 id="FactorResequedad" 
@@ -84,6 +94,7 @@
             <div class="form-group">
               <label for="Hectareas">Hectareas</label>
               <input 
+                value="{{$predio->Hectareas}}"
                 type="text" 
                 class="form-control @error('Hectareas') is-invalid @enderror" 
                 id="Hectareas" 
@@ -99,10 +110,10 @@
               @enderror
 
             </div>
-            
+            {{method_field('put')}}
             <button type="submit" class="btn btn-dark mb-1 mt-1">Grabar</button>
             <a href="{{action("PredioController@index")}}" class="btn btn-dark mb-1 mt-1">Limpiar</a>
-          </form>
+        </form>
 
             <div class="container-lg mt-2">
               <div class="table-wrapper">

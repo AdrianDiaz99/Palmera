@@ -19,9 +19,11 @@ class PredioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        return view('predios.index');
+        $predios = Predio::all();
+        return view('predios.index')->with('predios', $predios);
     }
 
 
@@ -32,7 +34,6 @@ class PredioController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -51,6 +52,24 @@ class PredioController extends Controller
             'Hectareas' => 'required|numeric'
         ]);
 
+        /*$predio = new Predio(
+            $data['FactorLluvia'],
+            $data['FactorHumedad'],
+            $data['FactorResequedad'],
+            $data['Hectareas'],
+            Auth::user()->id
+        );*/
+
+        $predio = new Predio();
+
+        $predio->factorLluvia = $data['FactorLluvia'];
+        $predio->factorHumedad = $data['FactorHumedad'];
+        $predio->factorResequedad = $data['FactorResequedad'];
+        $predio->hectareas = $data['Hectareas'];
+        $predio->user_id = Auth::user()->id;
+
+        $predio->save();
+        /*
         DB::table("predios")->insert([
             'FactorLluvia' => $data['FactorLluvia'],
             'FactorHumedad' => $data['FactorHumedad'],
@@ -58,8 +77,8 @@ class PredioController extends Controller
             'Hectareas' => $data['Hectareas'],
             'user_id' => Auth::user()->id,
         ]);
-
-        return redirect()->action("PredioController@index");
+*/
+        return redirect()->action("PredioController@index")->with('message', 'Predio insertado con éxito');
     }
 
     /**
@@ -79,9 +98,11 @@ class PredioController extends Controller
      * @param  \App\Predio  $predio
      * @return \Illuminate\Http\Response
      */
-    public function edit(Predio $predio)
+    public function edit($id)
     {
-        //
+        $predio = Predio::find($id);
+        $predios = Predio::all();
+        return view('predios.indexUpdatePredio', compact('predio', 'predios'));
     }
 
     /**
@@ -91,9 +112,27 @@ class PredioController extends Controller
      * @param  \App\Predio  $predio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Predio $predio)
+    public function update($id)
     {
-        //
+        $data = request()->validate([
+            'IdPredio' => 'size:0',
+            'FactorLluvia' => 'required|numeric',
+            'FactorHumedad' => 'required|numeric',
+            'FactorResequedad' => 'required|numeric',
+            'Hectareas' => 'required|numeric'
+        ]);
+
+        $predio = Predio::find($id);
+
+        $predio->factorLluvia = $data['FactorLluvia'];
+        $predio->factorHumedad = $data['FactorHumedad'];
+        $predio->factorResequedad = $data['FactorResequedad'];
+        $predio->hectareas = $data['Hectareas'];
+        $predio->user_id = Auth::user()->id;
+
+        $predio->save();
+
+        return redirect()->action("PredioController@index")->with('message', 'Predio actualizado con éxito');
     }
 
     /**
@@ -102,8 +141,10 @@ class PredioController extends Controller
      * @param  \App\Predio  $predio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Predio $predio)
+    public function destroy($id)
     {
-        //
+        $predio = Predio::find($id);
+        $predio->delete();
+        return redirect()->action("PredioController@index")->with('message', 'Predio eliminado con éxito');
     }
 }

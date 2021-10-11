@@ -20,6 +20,7 @@ class CreatePrediosTable extends Migration
             $table->double('FactorResequedad', 8, 3);
             $table->double('Hectareas');
             $table->foreignId('user_id')->references('id')->on('users');
+            $table->timestamps();
         });
     }
 

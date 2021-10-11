@@ -75,6 +75,11 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <main class="py-4">
+            @yield('lista_predios')
+        </main>
+
     </div>
 </body>
 </html>
