@@ -21,6 +21,7 @@ Route::get('/', function () {
 Route::resource('/predios', 'PredioController');
 
 Route::get('/predios', 'PredioController@index')->name('predios.index');
+Route::post('/predios/recuperar', 'PredioController@recuperar')->name('predios.recuperar');
 Route::post('/predios', 'PredioController@store')->name('predios.store');
 
 Auth::routes();

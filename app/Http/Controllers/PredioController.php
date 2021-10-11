@@ -45,20 +45,11 @@ class PredioController extends Controller
     public function store(Request $request)
     {
         $data = request()->validate([
-            'IdPredio' => 'size:0',
             'FactorLluvia' => 'required|numeric',
             'FactorHumedad' => 'required|numeric',
             'FactorResequedad' => 'required|numeric',
             'Hectareas' => 'required|numeric'
         ]);
-
-        /*$predio = new Predio(
-            $data['FactorLluvia'],
-            $data['FactorHumedad'],
-            $data['FactorResequedad'],
-            $data['Hectareas'],
-            Auth::user()->id
-        );*/
 
         $predio = new Predio();
 
@@ -69,15 +60,7 @@ class PredioController extends Controller
         $predio->user_id = Auth::user()->id;
 
         $predio->save();
-        /*
-        DB::table("predios")->insert([
-            'FactorLluvia' => $data['FactorLluvia'],
-            'FactorHumedad' => $data['FactorHumedad'],
-            'FactorResequedad' => $data['FactorResequedad'],
-            'Hectareas' => $data['Hectareas'],
-            'user_id' => Auth::user()->id,
-        ]);
-*/
+
         return redirect()->action("PredioController@index")->with('message', 'Predio insertado con éxito');
     }
 
@@ -101,8 +84,7 @@ class PredioController extends Controller
     public function edit($id)
     {
         $predio = Predio::find($id);
-        $predios = Predio::all();
-        return view('predios.indexUpdatePredio', compact('predio', 'predios'));
+        return view('predios.indexUpdatePredio', compact('predio'));
     }
 
     /**
@@ -147,4 +129,27 @@ class PredioController extends Controller
         $predio->delete();
         return redirect()->action("PredioController@index")->with('message', 'Predio eliminado con éxito');
     }
+
+    public function recuperar(Request $request)
+    {
+
+        $data = request();
+
+        try
+        {
+
+            $predio = Predio::findOrFail($data['IdPredio']);
+            return view('predios.indexRecuperarPredio', compact('predio'));
+
+        }
+        catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e)
+        {
+
+            return redirect()->action("PredioController@index")->with('error', 'El ID no existe');;
+
+        }
+
+
+    }
+
 }
