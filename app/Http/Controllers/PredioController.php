@@ -23,7 +23,8 @@ class PredioController extends Controller
     public function index()
     {
         $predios = Predio::all();
-        return view('predios.index')->with('predios', $predios);
+
+        return view('predios.index', compact('predios'));
     }
 
 
@@ -53,6 +54,7 @@ class PredioController extends Controller
 
         $predio = new Predio();
 
+        $predio->id = "oa";
         $predio->factorLluvia = $data['FactorLluvia'];
         $predio->factorHumedad = $data['FactorHumedad'];
         $predio->factorResequedad = $data['FactorResequedad'];

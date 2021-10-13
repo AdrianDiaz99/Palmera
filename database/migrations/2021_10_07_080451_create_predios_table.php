@@ -14,7 +14,7 @@ class CreatePrediosTable extends Migration
     public function up()
     {
         Schema::create('predios', function (Blueprint $table) {
-            $table->id();
+            $table->string('id', 4)->primary();
             $table->double('FactorLluvia', 8, 3);
             $table->double('FactorHumedad', 8, 3);
             $table->double('FactorResequedad', 8, 3);

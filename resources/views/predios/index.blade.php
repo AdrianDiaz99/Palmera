@@ -36,7 +36,7 @@
             </button>
         </form>
 
-        <form method="post" action="{{ route('predios.store') }}">
+        <form method="POST" action="{{ route('predios.store') }}">
             @csrf
 
 
@@ -114,6 +114,8 @@
                         </tr>
                     </thead>
                     <tbody>
+
+                    {{$predios}}
 
                         @foreach ($predios as $predio)
                             <tr>
