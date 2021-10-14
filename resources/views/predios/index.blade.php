@@ -114,9 +114,7 @@
                         </tr>
                     </thead>
                     <tbody>
-
-                    {{$predios}}
-
+                        
                         @foreach ($predios as $predio)
                             <tr>
                                 <td>{{ $predio->id }}</td>
