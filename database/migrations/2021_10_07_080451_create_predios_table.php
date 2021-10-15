@@ -19,8 +19,10 @@ class CreatePrediosTable extends Migration
             $table->double('FactorHumedad', 8, 3);
             $table->double('FactorResequedad', 8, 3);
             $table->double('Hectareas');
+            $table->smallInteger('organico');
             $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();
+            $table->smallInteger('estatus')->default(1);
         });
     }
 

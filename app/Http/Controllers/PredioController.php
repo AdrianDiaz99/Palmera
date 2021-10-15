@@ -16,138 +16,85 @@ class PredioController extends Controller
         $this->middleware('auth');
         $this->modelo = new PredioModel();
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
 
     public function index()
     {
-        $predios = $this->modelo->getPrediosParaCrud();
-        return view('predios.index')->with('predios', $predios);
+
+        return view('predios.index');
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function consultar()
     {
+        $predios = collect($this->modelo->getPrediosParaCrud());
+        return view('predios.consultar')->with('predios', $predios);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function postEvents(Request $request)
     {
 
-        $data = request()->validate([
-            'FactorLluvia' => 'required|numeric',
-            'FactorHumedad' => 'required|numeric',
-            'FactorResequedad' => 'required|numeric',
-            'Hectareas' => 'required|numeric'
-        ]);
+        if (isset($_POST['grabar'])) {
 
-        $predio = new Predio($data['FactorLluvia'], $data['FactorHumedad'], $data['FactorResequedad'], $data['Hectareas'], Auth::user()->id);
+            $data = request()->validate([
+                'FactorLluvia' => 'required|numeric',
+                'FactorHumedad' => 'required|numeric',
+                'FactorResequedad' => 'required|numeric',
+                'Hectareas' => 'required|numeric',
+                'Categoria' => 'required'
+            ]);
 
-        $respuesta = json_decode($this->modelo->agregarPredio($predio));
+            $predio = new Predio($data['FactorLluvia'], $data['FactorHumedad'], $data['FactorResequedad'], $data['Hectareas'], Auth::user()->id, $data['Categoria']);
 
-        return redirect()->action("PredioController@index")->with($respuesta->tipo, $respuesta->mensaje);
+            $respuesta = json_decode($this->modelo->agregarPredio($predio));
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Predio  $predio
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PredioModel $predio)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Predio  $predio
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $predio = PredioModel::find($id);
-        return view('predios.indexUpdatePredio', compact('predio'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Predio  $predio
-     * @return \Illuminate\Http\Response
-     */
-    public function update($id)
-    {
-        $data = request()->validate([
-            'IdPredio' => 'size:0',
-            'FactorLluvia' => 'required|numeric',
-            'FactorHumedad' => 'required|numeric',
-            'FactorResequedad' => 'required|numeric',
-            'Hectareas' => 'required|numeric'
-        ]);
-
-        $predio = PredioModel::find($id);
-
-        $predio->factorLluvia = $data['FactorLluvia'];
-        $predio->factorHumedad = $data['FactorHumedad'];
-        $predio->factorResequedad = $data['FactorResequedad'];
-        $predio->hectareas = $data['Hectareas'];
-        $predio->user_id = Auth::user()->id;
-
-        $predio->save();
-
-        return redirect()->action("PredioController@index")->with('message', 'Predio actualizado con éxito');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Predio  $predio
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $predio = PredioModel::find($id);
-        $predio->delete();
-        return redirect()->action("PredioController@index")->with('message', 'Predio eliminado con éxito');
-    }
-
-    public function recuperar(Request $request)
-    {
-
-        $data = request();
-
-        try
-        {
-
-            $predio = PredioModel::findOrFail($data['IdPredio']);
-            return view('predios.indexRecuperarPredio', compact('predio'));
-
-        }
-        catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e)
-        {
-
-            return redirect()->action("PredioController@index")->with('error', 'El ID no existe');;
-
+            return redirect()->action("PredioController@index")->with($respuesta->tipo, $respuesta->mensaje);
         }
 
+        if (isset($_POST['recuperar'])) {
 
+            $data = request()->validate([
+                'IdPredio' => 'required|size:4'
+            ]);
+
+            $respuesta = $this->modelo->getPredio($data['IdPredio']);
+            $predios = $this->modelo->getPrediosParaCrud();
+
+            if (!$respuesta instanceof Predio) {
+                return redirect()->action("PredioController@index")->with('error', $respuesta);
+            }
+
+            $predio = $respuesta;
+
+            return view('predios.index', compact('predio', 'predios'));
+        }
+
+        if (isset($_POST['actualizar'])) {
+
+            $data = request()->validate([
+                'IdPredio' => 'size:4',
+                'FactorLluvia' => 'required|numeric',
+                'FactorHumedad' => 'required|numeric',
+                'FactorResequedad' => 'required|numeric',
+                'Hectareas' => 'required|numeric',
+                'Categoria' => 'required'
+            ]);
+
+
+            $predio = new Predio($data['FactorLluvia'], $data['FactorHumedad'], $data['FactorResequedad'], $data['Hectareas'], Auth::user()->id, $data['Categoria']);
+
+            $respuesta = json_decode($this->modelo->actualizarPredio($data['IdPredio'], $predio));
+
+            return redirect()->action("PredioController@index")->with($respuesta->tipo, $respuesta->mensaje);
+        }
+
+        if (isset($_POST['eliminar'])) {
+
+            $data = request()->validate([
+                'IdPredio' => 'size:4'
+            ]);
+
+            $respuesta = json_decode($this->modelo->eliminarPredio($data['IdPredio']));
+
+            return redirect()->action("PredioController@index")->with($respuesta->tipo, $respuesta->mensaje);
+        }
     }
-
 }
