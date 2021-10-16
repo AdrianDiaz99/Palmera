@@ -9,21 +9,26 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class PredioModel extends Model
 {
     protected $table = 'predios';
-    protected $fillable = ['factorLluvia', 'factorHumedad', 'factorResequedad', 'hectareas', 'organico', 'user_id'];
+    protected $fillable = ['factorLluvia', 'factorHumedad', 'factorResequedad', 'hectareas', 'categoria', 'user_id'];
     protected $keyType = 'string';
     public $incrementing = false;
 
+    public function getCategoriasPredios()
+    {
+        return CategoriaPredio::all();
+    }
+
     public function getPrediosParaCrud()
     {
-        return PredioModel::get(['id', 'FactorLluvia', 'FactorHumedad', 'FactorResequedad', 'Hectareas', 'Organico']);
+        return PredioModel::all(['id', 'FactorLluvia', 'FactorHumedad', 'FactorResequedad', 'Hectareas', 'categoria']);
     }
 
     public function getPredio($id)
     {
         try {
 
-            $predio = PredioModel::select('FactorLluvia', 'FactorHumedad', 'FactorResequedad', 'Hectareas', 'user_id', 'Organico')->where('id', $id)->firstOrFail();
-            $predio = new Predio($predio->FactorLluvia, $predio->FactorHumedad, $predio->FactorResequedad, $predio->Hectareas, $predio->user_id, $predio->Organico);
+            $predio = PredioModel::select('FactorLluvia', 'FactorHumedad', 'FactorResequedad', 'Hectareas', 'user_id', 'Categoria')->where('id', $id)->firstOrFail();
+            $predio = new Predio($predio->FactorLluvia, $predio->FactorHumedad, $predio->FactorResequedad, $predio->Hectareas, $predio->user_id, $predio->Categoria);
             $predio->setId($id);
 
             return $predio;
@@ -39,7 +44,7 @@ class PredioModel extends Model
         $this->factorHumedad    = $predio->getFactorHumedad();
         $this->factorResequedad = $predio->getFactorResequedad();
         $this->hectareas        = $predio->getHectareas();
-        $this->organico         = $predio->getOrganico();
+        $this->Categoria        = $predio->getCategoria();
         $this->user_id          = $predio->getUserAlta();
 
         try {
@@ -73,7 +78,7 @@ class PredioModel extends Model
             $oldPredio->factorResequedad = $predio->getFactorResequedad();
             $oldPredio->hectareas        = $predio->getHectareas();
             $oldPredio->user_id          = $predio->getUserAlta();
-            $oldPredio->organico         = $predio->getOrganico();
+            $oldPredio->Categoria         = $predio->getCategoria();
 
             $oldPredio->save();
 
@@ -121,5 +126,10 @@ class PredioModel extends Model
         }
 
         return json_encode($respuesta);
+    }
+
+    public function obtenerCategoria()
+    {
+        return $this->belongsTo(CategoriaPredio::class, 'categoria');
     }
 }

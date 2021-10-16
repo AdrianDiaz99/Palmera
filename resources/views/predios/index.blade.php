@@ -32,7 +32,7 @@
                     class="form-control @error('IdPredio') is-invalid @enderror" 
                     id="IdPredio"
                     name="IdPredio"
-                    value="{{isset($predio)? $predio->getId() : old('FactorLluvia')}}"
+                    value="{{isset($predio)? $predio->getId() : old('IdPredio')}}"
                     {{isset($predio)? 'readonly' : ''}}
                 >
 
@@ -123,9 +123,15 @@
                     placeholder="Ingrese la categoria del predio" 
                     name="Categoria"
                 >
-                    <option>-- Seleccione --</option>
-                    <option value="1" {{isset($predio)?( $predio->getOrganico() == 1? 'selected' : '') : '' }}>Organico</option>
-                    <option value="0" {{isset($predio)?( $predio->getOrganico() == 0? 'selected' : '') : '' }}>No Organico</option>
+                    <option value="">-- Seleccione --</option>
+                    @foreach( $categorias as $categoria)
+                        <option 
+                            value="{{$categoria->id}}" 
+                            {{($categoria->id == old('Categoria') || (isset($predio)? $categoria->id == $predio->getCategoria() : false))? 'selected' : ''}}
+                        >
+                            {{$categoria->CatNombre}}
+                        </option>
+                    @endforeach
                 </select>
 
                 @error('Categoria')

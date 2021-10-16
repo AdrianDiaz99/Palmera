@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Predio
 {
-    private $id, $factorLluvia, $factorHumedad, $factorResequedad, $hectareas, $userAlta, $organico, $estatus;
+    private $id, $factorLluvia, $factorHumedad, $factorResequedad, $hectareas, $userAlta, $categoria, $estatus;
 
-    public function __construct($factorLluvia, $factorHumedad, $factorResequedad, $hectareas, $userAlta, $organico)
+    public function __construct($factorLluvia, $factorHumedad, $factorResequedad, $hectareas, $userAlta, $categoria)
     {
         $this->factorLluvia = $factorLluvia;
         $this->factorHumedad = $factorHumedad;
         $this->factorResequedad = $factorResequedad;
         $this->hectareas = $hectareas;
         $this->userAlta = $userAlta;
-        $this->organico = $organico;
+        $this->categoria = $categoria;
     }
 
     public function getEstatus()
@@ -30,14 +30,14 @@ class Predio
         return $this;
     }
 
-    public function getOrganico()
+    public function getCategoria()
     {
-        return $this->organico;
+        return $this->categoria;
     }
 
-    public function setOrganico($organico)
+    public function setCategoria($categoria)
     {
-        $this->organico = $organico;
+        $this->categoria = $categoria;
 
         return $this;
     }

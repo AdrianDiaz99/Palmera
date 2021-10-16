@@ -26,7 +26,7 @@
                         <th>Factor de Humedad</th>
                         <th>Factor de Resequedad</th>
                         <th>Hectareas</th>
-                        <th>Organico</th>
+                        <th>Categoria</th>
                     </tr>
                 </thead>
                 <tbody class="thead-light ">
@@ -38,7 +38,7 @@
                             <td>{{ $predio->FactorHumedad }}</td>
                             <td>{{ $predio->FactorResequedad }}</td>
                             <td>{{ $predio->Hectareas }}</td>
-                            <td>{{ $predio->Organico }}</td>
+                            <td>{{ $predio->obtenerCategoria->CatNombre }}</td>
                         </tr>
                     @endforeach
 
