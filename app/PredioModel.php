@@ -27,7 +27,7 @@ class PredioModel extends Model
     {
         try {
 
-            $predio = PredioModel::select('FactorLluvia', 'FactorHumedad', 'FactorResequedad', 'Hectareas', 'user_id', 'Categoria')->where('id', $id)->firstOrFail();
+            $predio = PredioModel::select('FactorLluvia', 'FactorHumedad', 'FactorResequedad', 'Hectareas', 'user_id', 'Categoria')->where('id', $id)->lockForUpdate()->firstOrFail();
             $predio = new Predio($predio->FactorLluvia, $predio->FactorHumedad, $predio->FactorResequedad, $predio->Hectareas, $predio->user_id, $predio->Categoria);
             $predio->setId($id);
 
