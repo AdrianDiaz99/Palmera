@@ -18,11 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/predios', 'PredioController');
+//Route::resource('/predios', 'PredioController');
 
 Route::get('/predios', 'PredioController@index')->name('predios.index');
-Route::post('/predios/recuperar', 'PredioController@recuperar')->name('predios.recuperar');
-Route::post('/predios', 'PredioController@store')->name('predios.store');
+Route::post('/predios', 'PredioController@postEvents')->name('predios.postEvents');
+Route::get('/predios/consultar', 'PredioController@consultar')->name('predios.consultar');
 
 Auth::routes();
 
