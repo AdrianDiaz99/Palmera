@@ -12,21 +12,37 @@ class CreateSpEliminarPredio extends Migration
     {
 
         DB::unprepared("
-            CREATE PROCEDURE sp_eliminar_predios(IN idPredio VARCHAR(4))
-            BEGIN
+        CREATE PROCEDURE sp_eliminar_predios(IN idPredio VARCHAR(4))
+        inicio : BEGIN
+
+            SET TRANSACTION ISOLATION LEVEL repeatable read;
+
+            START TRANSACTION;
             
-                SET TRANSACTION ISOLATION LEVEL repeatable read;
-            
-                START TRANSACTION;
+                IF NOT EXISTS (SELECT TRUE FROM predios WHERE id = idPredio) THEN
+                    SELECT 
+                        'error' as tipo,
+                        'El predio no existe' as mensaje;
+                    LEAVE inicio;
+                END IF;
                 
-                    UPDATE predios
-                    SET factorLluvia = factorLluvia * 2
-                    WHERE id = idPredio;
+                IF EXISTS (SELECT TRUE FROM predios WHERE id = idPredio AND estatus = 0) THEN
+                    SELECT 
+                        'error' as tipo,
+                        'El predio ya fue dado de baja con anterioridad' as mensaje;
+                    LEAVE inicio;
+                END IF;
             
-                    SELECT SLEEP(10);
-            
-                COMMIT;
-            END
+                UPDATE predios
+                SET Estatus = 0
+                WHERE id = idPredio;
+                    
+            SELECT 
+                'message' as tipo,
+                'Predio eliminado correctamente' as mensaje;
+                
+            COMMIT;
+        END
         ");
 
     }

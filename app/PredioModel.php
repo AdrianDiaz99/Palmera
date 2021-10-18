@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\DataBase;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -13,6 +14,15 @@ class PredioModel extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
+    private $dataBase;
+
+    public function __construct()
+    {
+
+        $this->dataBase = new DataBase();
+        
+    }
+
     public function getCategoriasPredios()
     {
         return CategoriaPredio::all();
@@ -20,20 +30,32 @@ class PredioModel extends Model
 
     public function getPrediosParaCrud()
     {
-        return PredioModel::all(['id', 'FactorLluvia', 'FactorHumedad', 'FactorResequedad', 'Hectareas', 'categoria']);
+        
+        $predios = PredioModel::where('estatus', '=', 1)->lockForUpdate()->paginate(10);
+
+        return $predios;
     }
 
     public function getPredio($id)
     {
         try {
 
-            $predio = PredioModel::select('FactorLluvia', 'FactorHumedad', 'FactorResequedad', 'Hectareas', 'user_id', 'Categoria')->where('id', $id)->lockForUpdate()->firstOrFail();
+            $predio = PredioModel::select('FactorLluvia', 'FactorHumedad', 'FactorResequedad', 'Hectareas', 'user_id', 'Categoria', 'estatus')->where('id', $id)->lockForUpdate()->firstOrFail();
+            
+            if($predio->estatus == 0)
+            {
+
+                return "Predio inactivo";
+
+            }
+
             $predio = new Predio($predio->FactorLluvia, $predio->FactorHumedad, $predio->FactorResequedad, $predio->Hectareas, $predio->user_id, $predio->Categoria);
             $predio->setId($id);
 
             return $predio;
+
         } catch (Exception $e) {
-            return "No se encontro el predio";
+            return "No se encontró el predio";
         }
     }
 
@@ -78,7 +100,7 @@ class PredioModel extends Model
             $oldPredio->factorResequedad = $predio->getFactorResequedad();
             $oldPredio->hectareas        = $predio->getHectareas();
             $oldPredio->user_id          = $predio->getUserAlta();
-            $oldPredio->Categoria         = $predio->getCategoria();
+            $oldPredio->Categoria        = $predio->getCategoria();
 
             $oldPredio->save();
 
@@ -104,28 +126,10 @@ class PredioModel extends Model
     public function eliminarPredio($id)
     {
 
-        try {
+        $respuesta = $this->dataBase->eliminarPredio($id);
 
-            $predio = PredioModel::findOrFail($id);
-            $predio->delete();
+        return $respuesta;
 
-            $respuesta = array(
-                "tipo" => "message",
-                "mensaje" => "Predio eliminado correctamente"
-            );
-        } catch (ModelNotFoundException  $e) {
-            $respuesta = array(
-                "tipo" => "error",
-                "mensaje" => "No existe predio"
-            );
-        } catch (Exception $e) {
-            $respuesta = array(
-                "tipo" => "error",
-                "mensaje" => "No se pudo eliminar el predio en la base de datos. \n\nDetalle del error: {$e->getMessage()}"
-            );
-        }
-
-        return json_encode($respuesta);
     }
 
     public function obtenerCategoria()
