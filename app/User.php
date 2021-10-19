@@ -43,4 +43,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Predio::class);
     }
+
+    public function getUserName()
+    {
+        return $this->name;
+    }
 }

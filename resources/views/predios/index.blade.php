@@ -133,9 +133,9 @@
                     @foreach( $categorias as $categoria)
                         <option 
                             value="{{$categoria->id}}" 
-                            {{($categoria->id == old('Categoria') || (isset($predio)? $categoria->id == $predio->getCategoria() : false))? 'selected' : ''}}
+                            {{($categoria->getId() == old('Categoria') || (isset($predio)? $categoria->getId() == $predio->getCategoria() : false))? 'selected' : ''}}
                         >
-                            {{$categoria->CatNombre}}
+                            {{$categoria->getCatNombre()}}
                         </option>
                     @endforeach
                 </select>

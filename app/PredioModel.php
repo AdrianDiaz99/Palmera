@@ -6,6 +6,7 @@ use App\DataBase;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Auth;
 
 class PredioModel extends Model
 {
@@ -25,7 +26,7 @@ class PredioModel extends Model
 
     public function getPrediosParaCrud()
     {
-        return Predio::all(['id', 'FactorLluvia', 'FactorHumedad', 'FactorResequedad', 'Hectareas', 'categoria']);
+        return Predio::select(['id', 'FactorLluvia', 'FactorHumedad', 'FactorResequedad', 'Hectareas', 'categoria', 'estatus', 'user_id'])->simplePaginate(10);
     }
 
     public function getPredio($id)
@@ -33,6 +34,10 @@ class PredioModel extends Model
         try {
 
             $predio = Predio::findOrFail($id);
+
+            if ($predio->getEstatus() == 0) {
+                return "El predio se encuentra dado de baja";
+            }
 
             return $predio;
         } catch (Exception $e) {
@@ -46,10 +51,21 @@ class PredioModel extends Model
         try {
 
             $predio->save();
+            $respuesta = $this->dataBase->obtenerUltimoId(Auth::user()->id);
+
+            if ($respuesta->tipo == 'error') {
+                $predio->delete();
+                return json_encode(
+                    array(
+                        "tipo" => $respuesta->tipo,
+                        "mensaje" => $respuesta->mensaje
+                    )
+                );
+            }
 
             $respuesta = array(
                 "tipo" => "message",
-                "mensaje" => "Predio insertado correctamente"
+                "mensaje" => "Predio insertado correctamente con el ID \"$respuesta->mensaje\""
             );
         } catch (Exception $e) {
 
@@ -86,7 +102,7 @@ class PredioModel extends Model
             $predio->setCategoria($data['Categoria']);
             $predio->setUserAlta($data['user_id']);
 
-            $predio->save();
+            $predio->saveOrFail();
 
             $respuesta = array(
                 "tipo" => "message",
@@ -112,6 +128,6 @@ class PredioModel extends Model
 
         $respuesta = $this->dataBase->eliminarPredio($id);
 
-        return $respuesta;
+        return json_encode($respuesta);
     }
 }

@@ -10,9 +10,16 @@ class CategoriaPredio extends Model
     protected $fillable = ['CatNombre'];
     public $timestamps = false;
 
-    public function __construct($CatNombre)
+    public function getId()
     {
-        $this->CatNombre = $CatNombre;
+
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+
+        $this->id = $id;
     }
 
     public function getCatNombre()
@@ -27,6 +34,6 @@ class CategoriaPredio extends Model
 
     public function predios()
     {
-        return $this->hasMany(PredioModel::class, 'categoria');
+        return $this->hasMany(Predio::class, 'categoria');
     }
 }

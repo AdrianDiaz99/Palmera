@@ -29,8 +29,6 @@ class Predio extends Model
     public function setEstatus($estatus)
     {
         $this->estatus = $estatus;
-
-        return $this;
     }
 
     public function getCategoria()
@@ -41,8 +39,6 @@ class Predio extends Model
     public function setCategoria($categoria)
     {
         $this->categoria = $categoria;
-
-        return $this;
     }
 
     public function getId()
@@ -53,71 +49,65 @@ class Predio extends Model
     public function setId($id)
     {
         $this->id = $id;
-
-        return $this;
     }
 
     public function getFactorLluvia()
     {
-        return $this->factorLluvia;
+        return $this->FactorLluvia;
     }
 
     public function setFactorLluvia($factorLluvia)
     {
-        $this->factorLluvia = $factorLluvia;
-
-        return $this;
+        $this->FactorLluvia = $factorLluvia;
     }
 
     public function getFactorHumedad()
     {
-        return $this->factorHumedad;
+        return $this->FactorHumedad;
     }
 
     public function setFactorHumedad($factorHumedad)
     {
-        $this->factorHumedad = $factorHumedad;
-
-        return $this;
+        $this->FactorHumedad = $factorHumedad;
     }
 
     public function getFactorResequedad()
     {
-        return $this->factorResequedad;
+        return $this->FactorResequedad;
     }
 
     public function setFactorResequedad($factorResequedad)
     {
-        $this->factorResequedad = $factorResequedad;
-
-        return $this;
+        $this->FactorResequedad = $factorResequedad;
     }
 
     public function getHectareas()
     {
-        return $this->hectareas;
+        return $this->Hectareas;
     }
     public function setHectareas($hectareas)
     {
-        $this->hectareas = $hectareas;
-
-        return $this;
+        $this->Hectareas = $hectareas;
     }
 
     public function getUserAlta()
     {
-        return $this->userAlta;
+        return $this->user_id;
     }
 
     public function setUserAlta($userAlta)
     {
-        $this->userAlta = $userAlta;
-
-        return $this;
+        $this->user_id = $userAlta;
     }
 
-    public function categoria()
+    /* Relacion n:1 Predios - Categorias/Usuarios */
+    public function objetoCategoria()
     {
         return $this->belongsTo(CategoriaPredio::class, 'categoria');
+    }
+
+    public function objetoUsuario()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

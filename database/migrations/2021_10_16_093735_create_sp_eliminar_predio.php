@@ -7,11 +7,14 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateSpEliminarPredio extends Migration
 {
-    
+
     public function up()
     {
 
         DB::unprepared("
+
+        DROP PROCEDURE IF EXISTS sp_eliminar_predios;
+
         CREATE PROCEDURE sp_eliminar_predios(IN idPredio VARCHAR(4))
         inicio : BEGIN
 
@@ -26,7 +29,7 @@ class CreateSpEliminarPredio extends Migration
                     LEAVE inicio;
                 END IF;
                 
-                IF EXISTS (SELECT TRUE FROM predios WHERE id = idPredio AND estatus = 0) THEN
+                IF EXISTS (SELECT TRUE FROM predios WHERE id = idPredio AND estatus = 0 FOR UPDATE) THEN
                     SELECT 
                         'error' as tipo,
                         'El predio ya fue dado de baja con anterioridad' as mensaje;
@@ -44,16 +47,10 @@ class CreateSpEliminarPredio extends Migration
             COMMIT;
         END
         ");
-
     }
-
-
-
     public function down()
     {
 
         DB::unprepared('DROP PROCEDURE `sp_eliminar_predios` ');
-
     }
-
 }

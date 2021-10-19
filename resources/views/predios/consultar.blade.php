@@ -26,23 +26,28 @@
                         <th>Factor de Resequedad</th>
                         <th>Hectareas</th>
                         <th>Categoría</th>
+                        <th>Estatus</th>
+                        <th>Usuario Alta</th>
                     </tr>
                 </thead>
                 <tbody class="thead-light ">
                     
                     @foreach ($predios as $predio)
-                        <tr>
-                            <td>{{ $predio->id }}</td>
-                            <td>{{ $predio->FactorLluvia }}</td>
-                            <td>{{ $predio->FactorHumedad }}</td>
-                            <td>{{ $predio->FactorResequedad }}</td>
-                            <td>{{ $predio->Hectareas }}</td>
-                            <td>{{ $predio->obtenerCategoria->CatNombre }}</td>
+                        <tr class="{{ $predio->getEstatus() == 1? '' : 'table-danger'}}">
+                            <td>{{ $predio->getId() }}</td>
+                            <td>{{ $predio->getFactorLluvia() }}</td>
+                            <td>{{ $predio->getFactorHumedad() }}</td>
+                            <td>{{ $predio->getFactorResequedad() }}</td>
+                            <td>{{ $predio->getHectareas() }}</td>
+                            <td>{{ $predio->objetoCategoria->getCatNombre() }}</td>
+                            <td>{{ $predio->getEstatus() == 1 ? 'Activo' : 'Dado de baja' }}</td>
+                            <td>{{ $predio->objetoUsuario->getUserName() }}</td>
                         </tr>
                     @endforeach
 
                 </tbody>
             </table>
+            {{$predios->links()}}
         </div>
     </div>
 

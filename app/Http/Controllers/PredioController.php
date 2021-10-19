@@ -101,9 +101,9 @@ class PredioController extends Controller
                 'IdPredio' => 'size:4'
             ]);
 
-            $respuesta = $this->modelo->eliminarPredio($data['IdPredio']);
+            $respuesta = json_decode($this->modelo->eliminarPredio($data['IdPredio']));
 
-            return redirect()->action("PredioController@index")->with($respuesta[0]->tipo, $respuesta[0]->mensaje);
+            return redirect()->action("PredioController@index")->with($respuesta->tipo, $respuesta->mensaje);
         }
     }
 }
