@@ -45,7 +45,15 @@ class PredioController extends Controller
                 'Categoria' => 'required',
             ]);
 
-            $predio = new Predio($data['FactorLluvia'], $data['FactorHumedad'], $data['FactorResequedad'], $data['Hectareas'], Auth::user()->id, $data['Categoria']);
+            $predio = new Predio();
+            $predio->asignarVariables(
+                $data['FactorLluvia'],
+                $data['FactorHumedad'],
+                $data['FactorResequedad'],
+                $data['Hectareas'],
+                $data['Categoria'],
+                Auth::user()->id
+            );
             $respuesta = json_decode($this->modelo->agregarPredio($predio));
 
             return redirect()->action("PredioController@index")->with($respuesta->tipo, $respuesta->mensaje);
@@ -81,10 +89,9 @@ class PredioController extends Controller
                 'Categoria' => 'required'
             ]);
 
+            $data['user_id'] = Auth::user()->id;
 
-            $predio = new Predio($data['FactorLluvia'], $data['FactorHumedad'], $data['FactorResequedad'], $data['Hectareas'], Auth::user()->id, $data['Categoria']);
-
-            $respuesta = json_decode($this->modelo->actualizarPredio($data['IdPredio'], $predio));
+            $respuesta = json_decode($this->modelo->actualizarPredio($data));
 
             return redirect()->action("PredioController@index")->with($respuesta->tipo, $respuesta->mensaje);
         }

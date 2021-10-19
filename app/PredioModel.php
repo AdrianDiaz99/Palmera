@@ -8,10 +8,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PredioModel extends Model
 {
-    protected $table = 'predios';
-    protected $fillable = ['factorLluvia', 'factorHumedad', 'factorResequedad', 'hectareas', 'categoria', 'user_id'];
-    protected $keyType = 'string';
-    public $incrementing = false;
 
     public function getCategoriasPredios()
     {
@@ -20,16 +16,14 @@ class PredioModel extends Model
 
     public function getPrediosParaCrud()
     {
-        return PredioModel::all(['id', 'FactorLluvia', 'FactorHumedad', 'FactorResequedad', 'Hectareas', 'categoria']);
+        return Predio::all(['id', 'FactorLluvia', 'FactorHumedad', 'FactorResequedad', 'Hectareas', 'categoria']);
     }
 
     public function getPredio($id)
     {
         try {
 
-            $predio = PredioModel::select('FactorLluvia', 'FactorHumedad', 'FactorResequedad', 'Hectareas', 'user_id', 'Categoria')->where('id', $id)->lockForUpdate()->firstOrFail();
-            $predio = new Predio($predio->FactorLluvia, $predio->FactorHumedad, $predio->FactorResequedad, $predio->Hectareas, $predio->user_id, $predio->Categoria);
-            $predio->setId($id);
+            $predio = Predio::findOrFail($id);
 
             return $predio;
         } catch (Exception $e) {
@@ -40,16 +34,9 @@ class PredioModel extends Model
     public function agregarPredio(Predio $predio)
     {
 
-        $this->factorLluvia     = $predio->getFactorLluvia();
-        $this->factorHumedad    = $predio->getFactorHumedad();
-        $this->factorResequedad = $predio->getFactorResequedad();
-        $this->hectareas        = $predio->getHectareas();
-        $this->Categoria        = $predio->getCategoria();
-        $this->user_id          = $predio->getUserAlta();
-
         try {
 
-            $this->save();
+            $predio->save();
 
             $respuesta = array(
                 "tipo" => "message",
@@ -66,21 +53,31 @@ class PredioModel extends Model
         return json_encode($respuesta);
     }
 
-    public function actualizarPredio($id, $predio)
+    public function actualizarPredio($data)
     {
 
         try {
 
-            $oldPredio = PredioModel::findOrFail($id);
+            $predio = Predio::findOrFail($data['IdPredio']);
 
-            $oldPredio->factorLluvia     = $predio->getFactorLluvia();
-            $oldPredio->factorHumedad    = $predio->getFactorHumedad();
-            $oldPredio->factorResequedad = $predio->getFactorResequedad();
-            $oldPredio->hectareas        = $predio->getHectareas();
-            $oldPredio->user_id          = $predio->getUserAlta();
-            $oldPredio->Categoria         = $predio->getCategoria();
+            if ($predio->getEstatus() == 0) {
 
-            $oldPredio->save();
+                return json_encode(
+                    $respuesta = array(
+                        "tipo" => "error",
+                        "mensaje" => "El predio se encuentra dado de baja"
+                    )
+                );
+            }
+
+            $predio->setFactorLluvia($data['FactorLluvia']);
+            $predio->setFactorHumedad($data['FactorHumedad']);
+            $predio->setFactorResequedad($data['FactorResequedad']);
+            $predio->setHectareas($data['Hectareas']);
+            $predio->setCategoria($data['Categoria']);
+            $predio->setUserAlta($data['user_id']);
+
+            $predio->save();
 
             $respuesta = array(
                 "tipo" => "message",
@@ -126,10 +123,5 @@ class PredioModel extends Model
         }
 
         return json_encode($respuesta);
-    }
-
-    public function obtenerCategoria()
-    {
-        return $this->belongsTo(CategoriaPredio::class, 'categoria');
     }
 }

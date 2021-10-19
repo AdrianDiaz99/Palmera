@@ -4,18 +4,21 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Predio
+class Predio extends Model
 {
-    private $id, $factorLluvia, $factorHumedad, $factorResequedad, $hectareas, $userAlta, $categoria, $estatus;
+    protected $table = 'predios';
+    protected $fillable = ['factorLluvia', 'factorHumedad', 'factorResequedad', 'hectareas', 'categoria', 'user_id'];
+    protected $keyType = 'string';
+    public $incrementing = false;
 
-    public function __construct($factorLluvia, $factorHumedad, $factorResequedad, $hectareas, $userAlta, $categoria)
+    public function asignarVariables($factorLluvia, $factorHumedad, $factorResequedad, $hectareas, $categoria, $user_id)
     {
         $this->factorLluvia = $factorLluvia;
         $this->factorHumedad = $factorHumedad;
         $this->factorResequedad = $factorResequedad;
         $this->hectareas = $hectareas;
-        $this->userAlta = $userAlta;
         $this->categoria = $categoria;
+        $this->user_id = $user_id;
     }
 
     public function getEstatus()
@@ -111,5 +114,10 @@ class Predio
         $this->userAlta = $userAlta;
 
         return $this;
+    }
+
+    public function categoria()
+    {
+        return $this->belongsTo(CategoriaPredio::class, 'categoria');
     }
 }
