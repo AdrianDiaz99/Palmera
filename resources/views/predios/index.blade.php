@@ -36,6 +36,12 @@
                     {{isset($predio)? 'readonly' : ''}}
                 >
 
+                @error('IdPredio')
+                    <span class="invalid-feedback d_block" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
             </div>
 
             <button name="recuperar" type="submit" class="btn btn-dark mb-4" data-toggle="tooltip">Recuperar</button>
@@ -116,7 +122,7 @@
             </div>
             
             <div class="form-group">
-                <label for="Categoria">Categoria del predio</label>
+                <label for="Categoria">Categoría del predio</label>
                 <select 
                     class="form-control @error('Categoria') is-invalid @enderror" 
                     id="Categoria"

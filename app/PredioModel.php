@@ -2,12 +2,21 @@
 
 namespace App;
 
+use App\DataBase;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PredioModel extends Model
 {
+
+    private $dataBase;
+
+    public function __construct()
+    {
+
+        $this->dataBase = new DataBase();
+    }
 
     public function getCategoriasPredios()
     {
@@ -27,7 +36,7 @@ class PredioModel extends Model
 
             return $predio;
         } catch (Exception $e) {
-            return "No se encontro el predio";
+            return "No se encontró el predio";
         }
     }
 
@@ -101,27 +110,8 @@ class PredioModel extends Model
     public function eliminarPredio($id)
     {
 
-        try {
+        $respuesta = $this->dataBase->eliminarPredio($id);
 
-            $predio = PredioModel::findOrFail($id);
-            $predio->delete();
-
-            $respuesta = array(
-                "tipo" => "message",
-                "mensaje" => "Predio eliminado correctamente"
-            );
-        } catch (ModelNotFoundException  $e) {
-            $respuesta = array(
-                "tipo" => "error",
-                "mensaje" => "No existe predio"
-            );
-        } catch (Exception $e) {
-            $respuesta = array(
-                "tipo" => "error",
-                "mensaje" => "No se pudo eliminar el predio en la base de datos. \n\nDetalle del error: {$e->getMessage()}"
-            );
-        }
-
-        return json_encode($respuesta);
+        return $respuesta;
     }
 }

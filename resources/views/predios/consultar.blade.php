@@ -2,7 +2,6 @@
 
 @section('content')
 
-
     <div class="container-lg mt-2">
 
         <a 
@@ -26,7 +25,7 @@
                         <th>Factor de Humedad</th>
                         <th>Factor de Resequedad</th>
                         <th>Hectareas</th>
-                        <th>Categoria</th>
+                        <th>Categoría</th>
                     </tr>
                 </thead>
                 <tbody class="thead-light ">
