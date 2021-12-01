@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'email', 'password',
     ];
 
     /**
@@ -37,11 +37,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /* Relacion 1:n Usuarios - Predios */
-
-    public function predios()
+    public function Empleado()
     {
-        return $this->hasMany(Predio::class);
+        return $this->hasOne(Empleados::class, 'EmpID');
     }
 
     public function getUserName()

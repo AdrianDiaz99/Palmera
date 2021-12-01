@@ -13,76 +13,116 @@ d<?php
         public function run()
         {
 
-            DB::table('predios')->insert([
-                'FactorLluvia' => 90.9,
-                'FactorHumedad' => 99,
-                'FactorResequedad' => 0.1,
-                'Hectareas' => 10,
-                'categoria' => 1,
-                'user_id' => 1,
-                'estatus' => 1,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s')
-            ]);
+            $idPredio = DB::select("CALL sp_obtener_id('Predios')")[0]->v_idSiguiente;
 
             DB::table('predios')->insert([
-                'FactorLluvia' => 80.9,
-                'FactorHumedad' => 80,
-                'FactorResequedad' => 12.1,
-                'Hectareas' => 16,
-                'categoria' => 1,
-                'user_id' => 2,
-                'estatus' => 1,
+                'PreID' => $idPredio,
+                'PreFactorLluvia' => 90.9,
+                'PreFactorHumedad' => 99,
+                'PreFactorResequedad' => 0.1,
+                'PreHectareas' => 10,
+                'PreTipoSuelo' => 1,
+                'Categoria' => 1,
+                'EmpleadoAlta' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s')
+                'updated_at' => date('Y-m-d H:i:s'),
+                'estatus' => 1
             ]);
 
-            DB::table('predios')->insert([
-                'FactorLluvia' => 50.0,
-                'FactorHumedad' => 50.0,
-                'FactorResequedad' => 50.0,
-                'Hectareas' => 7,
-                'categoria' => 2,
-                'user_id' => 1,
-                'estatus' => 0,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s')
-            ]);
+            $idPredio = DB::select("CALL sp_obtener_id('Predios')")[0]->v_idSiguiente;
 
             DB::table('predios')->insert([
-                'FactorLluvia' => 73.3,
-                'FactorHumedad' => 70,
-                'FactorResequedad' => 29.3,
-                'Hectareas' => 20,
-                'categoria' => 2,
-                'user_id' => 3,
-                'estatus' => 1,
+                'PreID' => $idPredio,
+                'PreFactorLluvia' => 90.9,
+                'PreFactorHumedad' => 99,
+                'PreFactorResequedad' => 0.1,
+                'PreHectareas' => 10,
+                'PreTipoSuelo' => 1,
+                'Categoria' => 1,
+                'EmpleadoAlta' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s')
+                'updated_at' => date('Y-m-d H:i:s'),
+                'estatus' => 1
             ]);
 
-            DB::table('predios')->insert([
-                'FactorLluvia' => 13.3,
-                'FactorHumedad' => 10,
-                'FactorResequedad' => 60.3,
-                'Hectareas' => 3,
-                'categoria' => 2,
-                'user_id' => 2,
-                'estatus' => 1,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s')
-            ]);
+            $idPredio = DB::select("CALL sp_obtener_id('Predios')")[0]->v_idSiguiente;
 
             DB::table('predios')->insert([
-                'FactorLluvia' => 100,
-                'FactorHumedad' => 100,
-                'FactorResequedad' => 0,
-                'Hectareas' => 16,
-                'categoria' => 1,
-                'user_id' => 1,
-                'estatus' => 1,
+                'PreID' => $idPredio,
+                'PreFactorLluvia' => 90.9,
+                'PreFactorHumedad' => 99,
+                'PreFactorResequedad' => 0.1,
+                'PreHectareas' => 10,
+                'PreTipoSuelo' => 1,
+                'Categoria' => 1,
+                'EmpleadoAlta' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s')
+                'updated_at' => date('Y-m-d H:i:s'),
+                'estatus' => 1
+            ]);
+
+            $idPredio = DB::select("CALL sp_obtener_id('Predios')")[0]->v_idSiguiente;
+
+            DB::table('predios')->insert([
+                'PreID' => $idPredio,
+                'PreFactorLluvia' => 90.9,
+                'PreFactorHumedad' => 99,
+                'PreFactorResequedad' => 0.1,
+                'PreHectareas' => 10,
+                'PreTipoSuelo' => 1,
+                'Categoria' => 1,
+                'EmpleadoAlta' => 1,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+                'estatus' => 1
+            ]);
+
+            $idPredio = DB::select("CALL sp_obtener_id('Predios')")[0]->v_idSiguiente;
+
+            DB::table('predios')->insert([
+                'PreID' => $idPredio,
+                'PreFactorLluvia' => 90.9,
+                'PreFactorHumedad' => 99,
+                'PreFactorResequedad' => 0.1,
+                'PreHectareas' => 10,
+                'PreTipoSuelo' => 1,
+                'Categoria' => 1,
+                'EmpleadoAlta' => 1,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+                'estatus' => 1
+            ]);
+
+            $idPredio = DB::select("CALL sp_obtener_id('Predios')")[0]->v_idSiguiente;
+
+            DB::table('predios')->insert([
+                'PreID' => $idPredio,
+                'PreFactorLluvia' => 90.9,
+                'PreFactorHumedad' => 99,
+                'PreFactorResequedad' => 0.1,
+                'PreHectareas' => 10,
+                'PreTipoSuelo' => 1,
+                'Categoria' => 1,
+                'EmpleadoAlta' => 1,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+                'estatus' => 1
+            ]);
+
+            $idPredio = DB::select("CALL sp_obtener_id('Predios')")[0]->v_idSiguiente;
+
+            DB::table('predios')->insert([
+                'PreID' => $idPredio,
+                'PreFactorLluvia' => 90.9,
+                'PreFactorHumedad' => 99,
+                'PreFactorResequedad' => 0.1,
+                'PreHectareas' => 10,
+                'PreTipoSuelo' => 1,
+                'Categoria' => 1,
+                'EmpleadoAlta' => 1,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+                'estatus' => 1
             ]);
         }
     }

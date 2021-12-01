@@ -14,19 +14,25 @@ class CreatePrediosTable extends Migration
     public function up()
     {
 
+        Schema::create('TiposDeSuelo', function (Blueprint $table) {
+            $table->id('SueloID');
+            $table->text('SueloNombre');
+        });
+
         Schema::create('CategoriasPredios', function (Blueprint $table) {
-            $table->id();
+            $table->id('CatId');
             $table->string('CatNombre', 11);
         });
 
         Schema::create('predios', function (Blueprint $table) {
-            $table->string('id', 4)->primary();
-            $table->double('FactorLluvia', 8, 3);
-            $table->double('FactorHumedad', 8, 3);
-            $table->double('FactorResequedad', 8, 3);
-            $table->double('Hectareas');
-            $table->foreignId('categoria')->references('id')->on('categoriaspredios');
-            $table->foreignId('user_id')->references('id')->on('users');
+            $table->string('PreID', 4)->primary();
+            $table->double('PreFactorLluvia', 8, 3);
+            $table->double('PreFactorHumedad', 8, 3);
+            $table->double('PreFactorResequedad', 8, 3);
+            $table->double('PreHectareas');
+            $table->foreignId('PreTipoSuelo')->references('SueloID')->on('TiposDeSuelo');
+            $table->foreignId('Categoria')->references('CatId')->on('CategoriasPredios');
+            $table->foreignId('EmpleadoAlta')->references('EmpID')->on('Empleados');
             $table->timestamps();
             $table->smallInteger('estatus')->default(1);
         });
@@ -41,5 +47,6 @@ class CreatePrediosTable extends Migration
     {
         Schema::dropIfExists('predios');
         Schema::dropIfExists('CategoriasPredios');
+        Schema::dropIfExists('TiposDeSuelo');
     }
 }

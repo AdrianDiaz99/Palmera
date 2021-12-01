@@ -25,6 +25,7 @@
                         <th>Factor de Humedad</th>
                         <th>Factor de Resequedad</th>
                         <th>Hectareas</th>
+                        <th>Tipo De Suelo</th>
                         <th>Categoría</th>
                         <th>Estatus</th>
                         <th>Usuario Alta</th>
@@ -34,11 +35,12 @@
                     
                     @foreach ($predios as $predio)
                         <tr class="{{ $predio->getEstatus() == 1? '' : 'table-danger'}}">
-                            <td>{{ $predio->getId() }}</td>
+                            <td>{{ $predio->getPreID() }}</td>
                             <td>{{ $predio->getFactorLluvia() }}</td>
                             <td>{{ $predio->getFactorHumedad() }}</td>
                             <td>{{ $predio->getFactorResequedad() }}</td>
                             <td>{{ $predio->getHectareas() }}</td>
+                            <td>{{ $predio->objetoTipoSuelo->getSueloNombre() }}</td>
                             <td>{{ $predio->objetoCategoria->getCatNombre() }}</td>
                             <td>{{ $predio->getEstatus() == 1 ? 'Activo' : 'Dado de baja' }}</td>
                             <td>{{ $predio->objetoUsuario->getUserName() }}</td>

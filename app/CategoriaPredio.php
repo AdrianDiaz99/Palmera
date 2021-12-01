@@ -7,19 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 class CategoriaPredio extends Model
 {
     protected $table = "CategoriasPredios";
+    protected $primaryKey = 'CatId';
     protected $fillable = ['CatNombre'];
     public $timestamps = false;
 
     public function getId()
     {
 
-        return $this->id;
+        return $this->CatId;
     }
 
     public function setId($id)
     {
 
-        $this->id = $id;
+        $this->CatId = $id;
     }
 
     public function getCatNombre()

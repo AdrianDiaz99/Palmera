@@ -13,14 +13,30 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
+
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('email');
             $table->string('password');
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
+        });
+
+        Schema::create('TiposEmpleado', function (Blueprint $table) {
+            $table->id('TipoID');
+            $table->string('TipoNombre');
+        });
+
+        Schema::create('Empleados', function (Blueprint $table) {
+            $table->id('EmpID');
+            $table->foreignId('idUsuario')->references('id')->on('users');
+            //$table->string('EmpCorreo');
+            //$table->foreign('EmpCorreo')->references('email')->on('users');
+            $table->string('EmpDomicilio');
+            $table->string('EmpNombre');
+            $table->char('EmpTelefono', 10);
+            $table->foreignId('TipoEmpleado')->references('TipoID')->on('TiposEmpleado');
         });
     }
 
@@ -31,6 +47,8 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('Empleados');
+        Schema::dropIfExists('TiposEmpleado');
+        Schema::dropIfExists('Usuarios');
     }
 }

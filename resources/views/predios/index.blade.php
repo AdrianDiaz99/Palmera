@@ -32,7 +32,7 @@
                     class="form-control @error('IdPredio') is-invalid @enderror" 
                     id="IdPredio"
                     name="IdPredio"
-                    value="{{isset($predio)? $predio->getId() : old('IdPredio')}}"
+                    value="{{isset($predio)? $predio->getPreID() : old('IdPredio')}}"
                     {{isset($predio)? 'readonly' : ''}}
                 >
 
@@ -120,6 +120,33 @@
                 @enderror
 
             </div>
+
+            <div class="form-group">
+                <label for="TipoSuelo">Tipo de Suelo</label>
+                <select 
+                    class="form-control @error('TipoSuelo') is-invalid @enderror" 
+                    id="TipoSuelo"
+                    placeholder="Ingrese el tipo de suelo del predio" 
+                    name="TipoSuelo"
+                >
+                    <option value="">-- Seleccione --</option>
+                    @foreach( $tiposSuelo as $tipoSuelo)
+                        <option 
+                            value="{{$tipoSuelo->getSueloId()}}" 
+                            {{($tipoSuelo->getSueloId() == old('TipoSuelo') || (isset($predio)? $tipoSuelo->getSueloId() == $predio->getTipoSuelo() : false))? 'selected' : ''}}
+                        >
+                            {{$tipoSuelo->getSueloNombre()}}
+                        </option>
+                    @endforeach
+                </select>
+
+                @error('TipoSuelo')
+                    <span class="invalid-feedback d_block" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
+            </div>
             
             <div class="form-group">
                 <label for="Categoria">Categoría del predio</label>
@@ -132,7 +159,7 @@
                     <option value="">-- Seleccione --</option>
                     @foreach( $categorias as $categoria)
                         <option 
-                            value="{{$categoria->id}}" 
+                            value="{{$categoria->getId()}}" 
                             {{($categoria->getId() == old('Categoria') || (isset($predio)? $categoria->getId() == $predio->getCategoria() : false))? 'selected' : ''}}
                         >
                             {{$categoria->getCatNombre()}}

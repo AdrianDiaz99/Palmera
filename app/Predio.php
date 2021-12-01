@@ -7,19 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Predio extends Model
 {
     protected $table = 'predios';
-    protected $fillable = ['factorLluvia', 'factorHumedad', 'factorResequedad', 'hectareas', 'categoria', 'user_id'];
+    protected $primaryKey = 'PreID';
+    protected $fillable = ['PreID', 'PreFactorLluvia', 'PreFactorHumedad', 'PreFactorResequedad', 'PreHectareas', 'PreTipoSuelo', 'Categoria', 'EmpleadoAlta'];
     protected $keyType = 'string';
     public $incrementing = false;
-
-    public function asignarVariables($factorLluvia, $factorHumedad, $factorResequedad, $hectareas, $categoria, $user_id)
-    {
-        $this->factorLluvia = $factorLluvia;
-        $this->factorHumedad = $factorHumedad;
-        $this->factorResequedad = $factorResequedad;
-        $this->hectareas = $hectareas;
-        $this->categoria = $categoria;
-        $this->user_id = $user_id;
-    }
 
     public function getEstatus()
     {
@@ -31,63 +22,74 @@ class Predio extends Model
         $this->estatus = $estatus;
     }
 
+    public function getTipoSuelo()
+    {
+        return $this->PreTipoSuelo;
+    }
+
+    public function setTipoSuelo($tipoSuelo)
+    {
+        $this->PreTipoSuelo = $tipoSuelo;
+    }
+
+
     public function getCategoria()
     {
-        return $this->categoria;
+        return $this->Categoria;
     }
 
     public function setCategoria($categoria)
     {
-        $this->categoria = $categoria;
+        $this->Categoria = $categoria;
     }
 
-    public function getId()
+    public function getPreID()
     {
-        return $this->id;
+        return $this->PreID;
     }
 
-    public function setId($id)
+    public function setPreID($PreID)
     {
-        $this->id = $id;
+        $this->PreID = $PreID;
     }
 
     public function getFactorLluvia()
     {
-        return $this->FactorLluvia;
+        return $this->PreFactorLluvia;
     }
 
     public function setFactorLluvia($factorLluvia)
     {
-        $this->FactorLluvia = $factorLluvia;
+        $this->PreFactorLluvia = $factorLluvia;
     }
 
     public function getFactorHumedad()
     {
-        return $this->FactorHumedad;
+        return $this->PreFactorHumedad;
     }
 
     public function setFactorHumedad($factorHumedad)
     {
-        $this->FactorHumedad = $factorHumedad;
+        $this->PreFactorHumedad = $factorHumedad;
     }
 
     public function getFactorResequedad()
     {
-        return $this->FactorResequedad;
+        return $this->PreFactorResequedad;
     }
 
     public function setFactorResequedad($factorResequedad)
     {
-        $this->FactorResequedad = $factorResequedad;
+        $this->PreFactorResequedad = $factorResequedad;
     }
 
     public function getHectareas()
     {
-        return $this->Hectareas;
+        return $this->PreHectareas;
     }
     public function setHectareas($hectareas)
     {
-        $this->Hectareas = $hectareas;
+        $this->PreHectareas = $hectareas;
     }
 
     public function getUserAlta()
@@ -103,11 +105,17 @@ class Predio extends Model
     /* Relacion n:1 Predios - Categorias/Usuarios */
     public function objetoCategoria()
     {
-        return $this->belongsTo(CategoriaPredio::class, 'categoria');
+        return $this->belongsTo(CategoriaPredio::class, 'Categoria');
+    }
+
+    /* Relacion n:1 Predios - Categorias/Usuarios */
+    public function objetoTipoSuelo()
+    {
+        return $this->belongsTo(TiposDeSuelo::class, 'PreTipoSuelo');
     }
 
     public function objetoUsuario()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'EmpleadoAlta');
     }
 }

@@ -21,106 +21,51 @@ class PredioModel extends Model
 
     public function getCategoriasPredios()
     {
-        return CategoriaPredio::all();
+        return $this->dataBase->getCategoriasPredios();
+    }
+
+    public function getTiposSuelo()
+    {
+        return $this->dataBase->getTiposSuelo();
     }
 
     public function getPrediosParaCrud()
     {
-        return Predio::select(['id', 'FactorLluvia', 'FactorHumedad', 'FactorResequedad', 'Hectareas', 'categoria', 'estatus', 'user_id'])->simplePaginate(10);
+        return $this->dataBase->getPredios();
     }
 
     public function getPredio($id)
     {
-        try {
-
-            $predio = Predio::findOrFail($id);
-
-            if ($predio->getEstatus() == 0) {
-                return "El predio se encuentra dado de baja";
-            }
-
-            return $predio;
-        } catch (Exception $e) {
-            return "No se encontró el predio";
-        }
+        return $this->dataBase->getPredio($id);
     }
 
     public function agregarPredio(Predio $predio)
     {
-
-        try {
-
-            $predio->save();
-            $respuesta = $this->dataBase->obtenerUltimoId(Auth::user()->id);
-
-            if ($respuesta->tipo == 'error') {
-                $predio->delete();
-                return json_encode(
-                    array(
-                        "tipo" => $respuesta->tipo,
-                        "mensaje" => $respuesta->mensaje
-                    )
-                );
-            }
-
-            $respuesta = array(
-                "tipo" => "message",
-                "mensaje" => "Predio insertado correctamente con el ID \"$respuesta->mensaje\""
-            );
-        } catch (Exception $e) {
-
-            $respuesta = array(
-                "tipo" => "error",
-                "mensaje" => "Error al insertar predio \n\nDetalle del error: {$e->getMessage()}"
-            );
-        }
-
-        return json_encode($respuesta);
+        return $this->dataBase->agregarPredio($predio);
     }
 
     public function actualizarPredio($data)
     {
+        $predio = Predio::findOrFail($data['IdPredio']);
 
-        try {
+        if ($predio->getEstatus() == 0) {
 
-            $predio = Predio::findOrFail($data['IdPredio']);
-
-            if ($predio->getEstatus() == 0) {
-
-                return json_encode(
-                    $respuesta = array(
-                        "tipo" => "error",
-                        "mensaje" => "El predio se encuentra dado de baja"
-                    )
-                );
-            }
-
-            $predio->setFactorLluvia($data['FactorLluvia']);
-            $predio->setFactorHumedad($data['FactorHumedad']);
-            $predio->setFactorResequedad($data['FactorResequedad']);
-            $predio->setHectareas($data['Hectareas']);
-            $predio->setCategoria($data['Categoria']);
-            $predio->setUserAlta($data['user_id']);
-
-            $predio->saveOrFail();
-
-            $respuesta = array(
-                "tipo" => "message",
-                "mensaje" => "Predio guardado correctamente"
-            );
-        } catch (ModelNotFoundException  $e) {
-            $respuesta = array(
-                "tipo" => "error",
-                "mensaje" => "No existe predio"
-            );
-        } catch (Exception $e) {
-            $respuesta = array(
-                "tipo" => "error",
-                "mensaje" => "No se pudo actualizar el predio en la base de datos. \n\nDetalle del error: {$e->getMessage()}"
+            return json_encode(
+                $respuesta = array(
+                    "tipo" => "error",
+                    "mensaje" => "El predio se encuentra dado de baja"
+                )
             );
         }
 
-        return json_encode($respuesta);
+        $predio->setFactorLluvia($data['FactorLluvia']);
+        $predio->setFactorHumedad($data['FactorHumedad']);
+        $predio->setFactorResequedad($data['FactorResequedad']);
+        $predio->setHectareas($data['Hectareas']);
+        $predio->setTipoSuelo($data['TipoSuelo']);
+        $predio->setCategoria($data['Categoria']);
+
+        return $this->dataBase->actualizarPredio($predio);
     }
 
     public function eliminarPredio($id)
