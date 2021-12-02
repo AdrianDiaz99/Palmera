@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\PredioController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PredioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,5 +26,6 @@ Route::post('/predios', 'PredioController@postEvents')->name('predios.postEvents
 Route::get('/predios/consultar', 'PredioController@consultar')->name('predios.consultar');
 
 Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');

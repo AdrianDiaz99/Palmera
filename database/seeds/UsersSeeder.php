@@ -13,22 +13,22 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'email' => 'correo@correo.com',
+        DB::table('Usuarios')->insert([
+            'Correo' => 'correo@correo.com',
             'password' => Hash::make('12345678'),
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
-        DB::table('users')->insert([
-            'email' => 'correo2@correo.com',
+        DB::table('Usuarios')->insert([
+            'Correo' => 'correo2@correo.com',
             'password' => Hash::make('12345678'),
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
-        DB::table('users')->insert([
-            'email' => 'correo3@correo.com',
+        DB::table('Usuarios')->insert([
+            'Correo' => 'correo3@correo.com',
             'password' => Hash::make('12345678'),
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')

@@ -14,9 +14,8 @@ class CreateUsersTable extends Migration
     public function up()
     {
 
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('email');
+        Schema::create('Usuarios', function (Blueprint $table) {
+            $table->string('Correo')->primary();
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
@@ -30,9 +29,8 @@ class CreateUsersTable extends Migration
 
         Schema::create('Empleados', function (Blueprint $table) {
             $table->id('EmpID');
-            $table->foreignId('idUsuario')->references('id')->on('users');
-            //$table->string('EmpCorreo');
-            //$table->foreign('EmpCorreo')->references('email')->on('users');
+            $table->string('EmpCorreo');
+            $table->foreign('EmpCorreo')->references('Correo')->on('Usuarios');
             $table->string('EmpDomicilio');
             $table->string('EmpNombre');
             $table->char('EmpTelefono', 10);
