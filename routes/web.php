@@ -16,7 +16,7 @@ use App\Http\Controllers\PredioController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 //Route::resource('/predios', 'PredioController');
@@ -24,6 +24,9 @@ Route::get('/', function () {
 Route::get('/predios', 'PredioController@index')->name('predios.index');
 Route::post('/predios', 'PredioController@postEvents')->name('predios.postEvents');
 Route::get('/predios/consultar', 'PredioController@consultar')->name('predios.consultar');
+
+
+Route::get('/home/{opcion}', 'HomeController@eventos')->name('home.eventos');
 
 Auth::routes();
 Auth::routes(['register' => false]);

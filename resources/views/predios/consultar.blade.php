@@ -43,7 +43,7 @@
                             <td>{{ $predio->objetoTipoSuelo->getSueloNombre() }}</td>
                             <td>{{ $predio->objetoCategoria->getCatNombre() }}</td>
                             <td>{{ $predio->getEstatus() == 1 ? 'Activo' : 'Dado de baja' }}</td>
-                            <td>{{ $predio->objetoUsuario->getUserName() }}</td>
+                            <td>{{ $predio->objetoEmpleado->getNombre() }}</td>
                         </tr>
                     @endforeach
 

@@ -114,8 +114,8 @@ class Predio extends Model
         return $this->belongsTo(TiposDeSuelo::class, 'PreTipoSuelo');
     }
 
-    public function objetoUsuario()
+    public function objetoEmpleado()
     {
-        return $this->belongsTo(User::class, 'EmpleadoAlta');
+        return $this->belongsTo(Empleados::class, 'EmpleadoAlta');
     }
 }

@@ -8,7 +8,7 @@ class Empleados extends Model
 {
     protected $table = "Empleados";
     protected $primaryKey = 'EmpID';
-    protected $fillable = ['idUsuario', 'EmpDomicilio', 'EmpNombre', 'EmpTelefono', 'TipoEmpleado'];
+    protected $fillable = ['EmpCorreo', 'EmpDomicilio', 'EmpNombre', 'EmpTelefono', 'TipoEmpleado'];
     public $timestamps = false;
 
     public function getId()
