@@ -19,8 +19,8 @@ class CreatePrediosTable extends Migration
             $table->text('SueloNombre');
         });
 
-        Schema::create('CategoriasPredios', function (Blueprint $table) {
-            $table->id('CatId');
+        Schema::create('Categorias', function (Blueprint $table) {
+            $table->id('CatID');
             $table->string('CatNombre', 11);
         });
 
@@ -31,7 +31,7 @@ class CreatePrediosTable extends Migration
             $table->double('PreFactorResequedad', 8, 3);
             $table->double('PreHectareas');
             $table->foreignId('PreTipoSuelo')->references('SueloID')->on('TiposDeSuelo');
-            $table->foreignId('Categoria')->references('CatId')->on('CategoriasPredios');
+            $table->foreignId('Categoria')->references('CatID')->on('Categorias');
             $table->foreignId('EmpleadoAlta')->references('EmpID')->on('Empleados');
             $table->timestamps();
             $table->smallInteger('estatus')->default(1);
@@ -46,7 +46,7 @@ class CreatePrediosTable extends Migration
     public function down()
     {
         Schema::dropIfExists('predios');
-        Schema::dropIfExists('CategoriasPredios');
+        Schema::dropIfExists('Categorias');
         Schema::dropIfExists('TiposDeSuelo');
     }
 }

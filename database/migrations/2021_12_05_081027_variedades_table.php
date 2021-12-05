@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUbicacionesTable extends Migration
+class VariedadesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateUbicacionesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Ubicaciones', function (Blueprint $table) {
-            $table->id("idUbicacion");
-            $table->double('Coordenadas', 9, 6);
-            $table->string('Predio', 4);
-            $table->foreign('Predio')->references('PreID')->on('Predios');
+
+        Schema::create('Variedades', function (Blueprint $table) {
+            $table->id('VarID');
+            $table->string('VarNombre');
+            $table->string('VarDescripcion');
         });
+
     }
 
     /**
@@ -28,6 +29,8 @@ class CreateUbicacionesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Ubicaciones');
+       
+        Schema::dropIfExists('Variedades');
+
     }
 }

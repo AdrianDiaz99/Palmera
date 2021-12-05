@@ -12,11 +12,11 @@ class CategoriasSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('categoriaspredios')->insert([
+        DB::table('Categorias')->insert([
             'CatNombre' => 'Orgánico'
         ]);
 
-        DB::table('categoriaspredios')->insert([
+        DB::table('Categorias')->insert([
             'CatNombre' => 'No orgánico'
         ]);
     }

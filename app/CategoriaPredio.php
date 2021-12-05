@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategoriaPredio extends Model
 {
-    protected $table = "CategoriasPredios";
-    protected $primaryKey = 'CatId';
+    protected $table = "Categorias";
+    protected $primaryKey = 'CatID';
     protected $fillable = ['CatNombre'];
     public $timestamps = false;
 

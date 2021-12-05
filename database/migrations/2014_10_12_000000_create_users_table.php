@@ -36,6 +36,15 @@ class CreateUsersTable extends Migration
             $table->char('EmpTelefono', 10);
             $table->foreignId('TipoEmpleado')->references('TipoID')->on('TiposEmpleado');
         });
+
+        Schema::create('Clientes', function (Blueprint $table) {
+            $table->id('idCliente');
+            $table->string('Nombre');
+            $table->char('Telefono', 10);
+            $table->string('Correo');
+            $table->foreign('Correo')->references('Correo')->on('Usuarios');
+            });
+
     }
 
     /**
@@ -47,6 +56,7 @@ class CreateUsersTable extends Migration
     {
         Schema::dropIfExists('Empleados');
         Schema::dropIfExists('TiposEmpleado');
+        Schema::dropIfExists('Clientes');
         Schema::dropIfExists('Usuarios');
     }
 }

@@ -90,17 +90,5 @@ class UbicacionesSeeder extends Seeder
             'Predio' => 'P006'
         ]);
 
-        DB::table('Ubicaciones')->insert([
-            'Coordenadas' => 333.33333,
-            'Predio' => 'P007'
-        ]);
-        DB::table('Ubicaciones')->insert([
-            'Coordenadas' => 444.444444,
-            'Predio' => 'P007'
-        ]);
-        DB::table('Ubicaciones')->insert([
-            'Coordenadas' => 555.555555,
-            'Predio' => 'P007'
-        ]);
     }
 }
