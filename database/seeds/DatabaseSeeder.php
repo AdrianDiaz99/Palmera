@@ -18,10 +18,11 @@ class DatabaseSeeder extends Seeder
         $this->call(EmpleadosSeeder::class);
         $this->call(ControlConcurrenciaSeeder::class);
         $this->call(PrediosSeeder::class);
-        //$this->call(UbicacionesSeeder::class);
+        $this->call(UbicacionesSeeder::class);
         $this->call(ClientesSeeder::class);
         $this->call(VariedadesSeeder::class);
         $this->call(DatilesSeeder::class);
-        $this->call(UbicacionesSeeder::class);
+        $this->call(ActividadesSeeder::class);
+        $this->call(PalmerasSeeder::class);
     }
 }
