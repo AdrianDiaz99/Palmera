@@ -21,7 +21,7 @@ class CreatePrediosTable extends Migration
 
         Schema::create('Categorias', function (Blueprint $table) {
             $table->id('CatID');
-            $table->string('CatNombre', 11);
+            $table->string('CatNombre', 12);
         });
 
         Schema::create('predios', function (Blueprint $table) {

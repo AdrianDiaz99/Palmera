@@ -20,7 +20,7 @@ class PredioController extends Controller
     public function index()
     {
 
-        $categorias = $this->modelo->getCategoriasPredios();
+        $categorias = $this->modelo->getCategorias();
         $tiposSuelo = $this->modelo->getTiposSuelo();
         return view('predios.index', compact('categorias', 'tiposSuelo'));
     }
@@ -36,6 +36,7 @@ class PredioController extends Controller
     {
 
         if (isset($_POST['grabar'])) {
+
 
             $data = request()->validate([
                 'FactorLluvia' => 'required|numeric',
@@ -77,7 +78,7 @@ class PredioController extends Controller
             }
 
             $predio = $respuesta;
-            $categorias = $this->modelo->getCategoriasPredios();
+            $categorias = $this->modelo->getCategorias();
             $tiposSuelo = $this->modelo->getTiposSuelo();
 
             return view('predios.index', compact('predio', 'categorias', 'tiposSuelo'));

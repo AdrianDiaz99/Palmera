@@ -1,5 +1,6 @@
 <?php
 
+use App\Ubicaciones;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -12,83 +13,124 @@ class UbicacionesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('Ubicaciones')->insert([
-            'Coordenadas' => 333.33333,
-            'Predio' => 'P001'
-        ]);
-        DB::table('Ubicaciones')->insert([
-            'Coordenadas' => 444.444444,
-            'Predio' => 'P001'
-        ]);
-        DB::table('Ubicaciones')->insert([
-            'Coordenadas' => 555.555555,
-            'Predio' => 'P001'
-        ]);
+        $ubicacion = new Ubicaciones(
+            array(
+                "Coordenadas" => 333.33333,
+                "Predio" => 'P001'
+            )
+        );
+        $ubicacion->saveOrFail();
 
-        DB::table('Ubicaciones')->insert([
-            'Coordenadas' => 333.33333,
-            'Predio' => 'P002'
-        ]);
-        DB::table('Ubicaciones')->insert([
-            'Coordenadas' => 444.444444,
-            'Predio' => 'P002'
-        ]);
-        DB::table('Ubicaciones')->insert([
-            'Coordenadas' => 555.555555,
-            'Predio' => 'P002'
-        ]);
+        $ubicacion = new Ubicaciones(
+            array(
+                "Coordenadas" => 444.444444,
+                "Predio" => 'P001'
+            )
+        );
+        $ubicacion->saveOrFail();
 
-        DB::table('Ubicaciones')->insert([
-            'Coordenadas' => 333.33333,
-            'Predio' => 'P003'
-        ]);
-        DB::table('Ubicaciones')->insert([
-            'Coordenadas' => 444.444444,
-            'Predio' => 'P003'
-        ]);
-        DB::table('Ubicaciones')->insert([
-            'Coordenadas' => 555.555555,
-            'Predio' => 'P003'
-        ]);
+        $ubicacion = new Ubicaciones(
+            array(
+                "Coordenadas" => 555.555555,
+                "Predio" => 'P001'
+            )
+        );
+        $ubicacion->saveOrFail();
 
-        DB::table('Ubicaciones')->insert([
-            'Coordenadas' => 333.33333,
-            'Predio' => 'P004'
-        ]);
-        DB::table('Ubicaciones')->insert([
-            'Coordenadas' => 444.444444,
-            'Predio' => 'P004'
-        ]);
-        DB::table('Ubicaciones')->insert([
-            'Coordenadas' => 555.555555,
-            'Predio' => 'P004'
-        ]);
+        $ubicacion = new Ubicaciones(
+            array(
+                "Coordenadas" => 333.33333,
+                "Predio" => 'P002'
+            )
+        );
+        $ubicacion->saveOrFail();
 
-        DB::table('Ubicaciones')->insert([
-            'Coordenadas' => 333.33333,
-            'Predio' => 'P005'
-        ]);
-        DB::table('Ubicaciones')->insert([
-            'Coordenadas' => 444.444444,
-            'Predio' => 'P005'
-        ]);
-        DB::table('Ubicaciones')->insert([
-            'Coordenadas' => 555.555555,
-            'Predio' => 'P005'
-        ]);
+        $ubicacion = new Ubicaciones(
+            array(
+                "Coordenadas" => 444.444444,
+                "Predio" => 'P002'
+            )
+        );
+        $ubicacion->saveOrFail();
 
-        DB::table('Ubicaciones')->insert([
-            'Coordenadas' => 333.33333,
-            'Predio' => 'P006'
-        ]);
-        DB::table('Ubicaciones')->insert([
-            'Coordenadas' => 444.444444,
-            'Predio' => 'P006'
-        ]);
-        DB::table('Ubicaciones')->insert([
-            'Coordenadas' => 555.555555,
-            'Predio' => 'P006'
-        ]);
+        $ubicacion = new Ubicaciones(
+            array(
+                "Coordenadas" => 555.555555,
+                "Predio" => 'P002'
+            )
+        );
+        $ubicacion->saveOrFail();
 
+        $ubicacion = new Ubicaciones(
+            array(
+                "Coordenadas" => 333.33333,
+                "Predio" => 'P003'
+            )
+        );
+        $ubicacion->saveOrFail();
+
+        $ubicacion = new Ubicaciones(
+            array(
+                "Coordenadas" => 444.444444,
+                "Predio" => 'P003'
+            )
+        );
+        $ubicacion->saveOrFail();
+
+        $ubicacion = new Ubicaciones(
+            array(
+                "Coordenadas" => 555.555555,
+                "Predio" => 'P003'
+            )
+        );
+        $ubicacion->saveOrFail();
+
+        $ubicacion = new Ubicaciones(
+            array(
+                "Coordenadas" => 333.33333,
+                "Predio" => 'P004'
+            )
+        );
+        $ubicacion->saveOrFail();
+
+        $ubicacion = new Ubicaciones(
+            array(
+                "Coordenadas" => 444.444444,
+                "Predio" => 'P004'
+            )
+        );
+        $ubicacion->saveOrFail();
+
+        $ubicacion = new Ubicaciones(
+            array(
+                "Coordenadas" => 555.555555,
+                "Predio" => 'P004'
+            )
+        );
+        $ubicacion->saveOrFail();
+
+        $ubicacion = new Ubicaciones(
+            array(
+                "Coordenadas" => 333.33333,
+                "Predio" => 'P005'
+            )
+        );
+        $ubicacion->saveOrFail();
+
+        $ubicacion = new Ubicaciones(
+            array(
+                "Coordenadas" => 444.444444,
+                "Predio" => 'P005'
+            )
+        );
+        $ubicacion->saveOrFail();
+
+        $ubicacion = new Ubicaciones(
+            array(
+                "Coordenadas" => 555.555555,
+                "Predio" => 'P005'
+            )
+        );
+        $ubicacion->saveOrFail();
     }
 }

@@ -105,7 +105,7 @@ class Predio extends Model
     /* Relacion n:1 Predios - Categorias/Usuarios */
     public function objetoCategoria()
     {
-        return $this->belongsTo(CategoriaPredio::class, 'Categoria');
+        return $this->belongsTo(Categorias::class, 'Categoria');
     }
 
     /* Relacion n:1 Predios - Categorias/Usuarios */

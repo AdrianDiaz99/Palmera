@@ -11,17 +11,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(ControlConcurrenciaSeeder::class);
-        $this->call(CategoriasSeeder::class);
         $this->call(TiposDeSueloSeeder::class);
+        $this->call(CategoriasSeeder::class);
         $this->call(UsersSeeder::class);
         $this->call(TiposEmpleadoSeeder::class);
         $this->call(EmpleadosSeeder::class);
+        $this->call(ControlConcurrenciaSeeder::class);
+        $this->call(PrediosSeeder::class);
+        //$this->call(UbicacionesSeeder::class);
         $this->call(ClientesSeeder::class);
         $this->call(VariedadesSeeder::class);
         $this->call(DatilesSeeder::class);
-        $this->call(PrediosSeeder::class);
         $this->call(UbicacionesSeeder::class);
-        $this->call(ultimoSeeder::class);
     }
 }

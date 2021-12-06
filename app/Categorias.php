@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CategoriaPredio extends Model
+class Categorias extends Model
 {
     protected $table = "Categorias";
     protected $primaryKey = 'CatID';
@@ -14,13 +14,13 @@ class CategoriaPredio extends Model
     public function getId()
     {
 
-        return $this->CatId;
+        return $this->CatID;
     }
 
     public function setId($id)
     {
 
-        $this->CatId = $id;
+        $this->CatID = $id;
     }
 
     public function getCatNombre()

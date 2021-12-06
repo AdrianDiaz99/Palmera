@@ -19,9 +19,9 @@ class PredioModel extends Model
         $this->dataBase = new DataBase();
     }
 
-    public function getCategoriasPredios()
+    public function getCategorias()
     {
-        return $this->dataBase->getCategoriasPredios();
+        return $this->dataBase->getCategorias();
     }
 
     public function getTiposSuelo()

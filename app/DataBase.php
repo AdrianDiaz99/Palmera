@@ -107,8 +107,8 @@ class DataBase extends DB
     {
         return TiposDeSuelo::all();
     }
-    public function getCategoriasPredios()
+    public function getCategorias()
     {
-        return CategoriaPredio::all();
+        return Categorias::all();
     }
 }
