@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="position:fixed; width:100%; z-index: 10;">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -81,7 +81,7 @@
                     </ul>
                     
                 </div>
-            </div>
+            </div>-
         </nav>
 
         <main class="py-4">
