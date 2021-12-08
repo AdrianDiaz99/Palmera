@@ -10944,3 +10944,9 @@ a.text-dark:focus {
   }
 }
 
+.landmark {
+  width: 100%;
+  z-index: 10;
+  position: fixed;
+}
+

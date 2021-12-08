@@ -21,7 +21,8 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm landmark">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -85,12 +86,11 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div class="mt-5">
+                @yield('content')
+            </div>
         </main>
 
-        <main class="py-4">
-            @yield('lista_predios')
-        </main>
 
     </div>
 </body>
