@@ -1,23 +1,6 @@
 @extends('layouts.app');
 
 
-@section('opciones')
-
-<a 
-    class="dropdown-item" 
-    href="{{ route('home.eventos', ['opcion' => "Predios"]) }}"
->
-    Predios
-</a>
-<a 
-    class="dropdown-item" 
-    href="{{ route('home.eventos', ['opcion' => "ProgramarActividades"]) }}"
->
-        Programar Actividades
-</a>
-
-@endsection
-
 @section('content')
 
     <h1 class="text-center mb-5">Predios</h1>

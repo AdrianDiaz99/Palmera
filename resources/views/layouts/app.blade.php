@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="position:fixed; width:100%; z-index: 10;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -48,12 +48,29 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     @yield('opciones')
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-                                    
+
+                                        @auth
+                                            <a 
+                                            class="dropdown-item" 
+                                            href="{{ route('home.eventos', ['opcion' => "Predios"]) }}"
+                                            >
+                                                Predios
+                                            </a>
+
+                                            <a 
+                                            class="dropdown-item" 
+                                            href="{{ route('home.eventos', ['opcion' => "ProgramarActividades"]) }}"
+                                            >
+                                                Programar actividades a palmeras
+                                            </a>
+                                        @endauth
+                                        
+
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf

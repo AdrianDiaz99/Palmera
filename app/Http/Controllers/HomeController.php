@@ -35,7 +35,7 @@ class HomeController extends Controller
                 $ruta = "predios.index";
                 break;
             case "ProgramarActividades":
-                $ruta = "programar_actividades.index";
+                $ruta = "programar_actividades_palmeras.index";
                 break;
         }
 

@@ -25,9 +25,9 @@ Route::get('/predios', 'PredioController@index')->name('predios.index');
 Route::post('/predios', 'PredioController@postEvents')->name('predios.postEvents');
 Route::get('/predios/consultar', 'PredioController@consultar')->name('predios.consultar');
 
-Route::get('/programar_actividades/', 'ProgramarActividadesController@index')->name('programar_actividades.index');
-Route::get('/programar_actividades/{palmera}', 'ProgramarActividadesController@show')->name('programar_actividades.show');
-Route::post('/programar_actividades/', 'ProgramarActividadesController@events')->name('programar_actividades.events');
+Route::get('/programar_actividades_palmeras/', 'ProgramarActividadesPalmerasController@iniciaProgramarActividades')->name('programar_actividades_palmeras.index');
+Route::get('/programar_actividades_palmeras/{predio}', 'ProgramarActividadesPalmerasController@showPalmerasPredio')->name('programar_actividades_palmeras.showPalmerasPredio');
+Route::post('/programar_actividades_palmeras/', 'ProgramarActividadesPalmerasController@buscarPredio')->name('programar_actividades_palmeras.buscarPredio');
 
 
 Route::get('/home/{opcion}', 'HomeController@eventos')->name('home.eventos');

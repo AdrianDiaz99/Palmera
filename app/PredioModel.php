@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\DataBase;
+use App\DataBase\DataBase;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;

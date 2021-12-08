@@ -74,7 +74,8 @@ class DataBase extends DB
 
     public function getPredios()
     {
-        return Predio::select(
+        $args = func_get_args();
+        $predios = Predio::select(
             [
                 'PreID',
                 'PreFactorLluvia',
@@ -86,7 +87,18 @@ class DataBase extends DB
                 'EmpleadoAlta',
                 'estatus'
             ]
-        )->simplePaginate(5);
+        );
+
+        if (count(func_get_args()) > 0) {
+
+            if ($args[0])
+                $predios = $predios->where('PreID', $args[0]);
+
+            if ($args[1])
+                $predios = $predios->where('PreTipoSuelo', $args[1]);
+        }
+
+        return $predios->simplePaginate(10);
     }
 
     public function getPredio($id)
