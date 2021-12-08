@@ -19,7 +19,7 @@
 
 @section('content')
 
-    <h1 class="text-center mb-5">Predios</h1>
+    <h1 class="text-center mb-5">Palmera</h1>
 
     <div class="col-md-8 mx-auto bg-white p-3">
 

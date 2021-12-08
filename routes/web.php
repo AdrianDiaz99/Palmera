@@ -26,6 +26,7 @@ Route::post('/predios', 'PredioController@postEvents')->name('predios.postEvents
 Route::get('/predios/consultar', 'PredioController@consultar')->name('predios.consultar');
 
 Route::get('/programar_actividades/', 'ProgramarActividadesController@index')->name('programar_actividades.index');
+Route::get('/programar_actividades/{palmera}', 'ProgramarActividadesController@show')->name('programar_actividades.show');
 Route::post('/programar_actividades/', 'ProgramarActividadesController@events')->name('programar_actividades.events');
 
 

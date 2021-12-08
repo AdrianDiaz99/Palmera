@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\ProgramarActividadesModel;
+use App\Palmera;
 
 use Illuminate\Http\Request;
+use App\ProgramarActividadesModel;
 
 class ProgramarActividadesController extends Controller
 {
@@ -22,6 +23,12 @@ class ProgramarActividadesController extends Controller
         return view('programar_actividades.index');
     }
 
+    public function show(Palmera $palmera)
+    {
+        $actividades = $this->modelo->getActividades();
+        return view('programar_actividades.palmera', compact('actividades'));
+    }
+
     public function events(Request $request)
     {
         if (isset($_POST['buscar'])) {
@@ -30,7 +37,6 @@ class ProgramarActividadesController extends Controller
             ]);
 
             $predio = $this->modelo->getPredio($request['IdPredio']);
-
             return view('programar_actividades.index', compact('predio'));
         }
 

@@ -1,8 +1,10 @@
 <?php
 
-namespace App;
+namespace App\DataBase;
 
-use PDO;
+use App\Predio;
+use App\Categorias;
+use App\TiposDeSuelo;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Framework\MockObject\Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;

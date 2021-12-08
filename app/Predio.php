@@ -118,4 +118,9 @@ class Predio extends Model
     {
         return $this->belongsTo(Empleados::class, 'EmpleadoAlta');
     }
+
+    public function Palmeras()
+    {
+        return $this->hasMany(Palmera::class, 'Predio');
+    }
 }
