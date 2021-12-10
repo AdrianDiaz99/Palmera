@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\DataBase\CategoriasDAO;
 use Illuminate\Database\Eloquent\Model;
 
 class Categorias extends Model
@@ -10,6 +11,13 @@ class Categorias extends Model
     protected $primaryKey = 'CatID';
     protected $fillable = ['CatNombre'];
     public $timestamps = false;
+
+    private $dao;
+
+    public function __construct()
+    {
+        $this->dao = new CategoriasDAO();
+    }
 
     public function getId()
     {

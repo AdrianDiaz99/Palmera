@@ -2,20 +2,20 @@
 
 namespace App;
 
+use App\DataBase\ActividadesDAO;
 use Illuminate\Database\Eloquent\Model;
-use App\DataBase\ProgramarActividadesPalmerasDAO;
 
 define("ORGANICO", 1);
 define("NO_ORGANICO", 2);
 
-class ProgramarActividadesPalmerasModel extends Model
+class ActividadesModel extends Model
 {
     private $dataBase;
 
     public function __construct()
     {
 
-        $this->dataBase = new ProgramarActividadesPalmerasDAO();
+        $this->dataBase = new ActividadesDAO();
     }
 
     public function getPredios()
@@ -38,10 +38,5 @@ class ProgramarActividadesPalmerasModel extends Model
     public function getActividades()
     {
         return $this->dataBase->getActividades();
-    }
-
-    public function getTiposSuelo()
-    {
-        return $this->dataBase->getTiposSuelo();
     }
 }

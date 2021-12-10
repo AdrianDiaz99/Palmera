@@ -20,7 +20,7 @@
             </div>
 
         @endif
-        <form method="POST" action="{{ route('programar_actividades_palmeras.buscarPredio') }}">
+        <form method="POST" action="{{ route('actividades_palmeras.buscarPredio') }}">
             @csrf
             <div class="form-group">
                 <label for="IdPredio">ID Predio</label>
@@ -93,7 +93,7 @@
                                 <td>{{ $predio->objetoCategoria->getCatNombre() }}</td>
                                 <td>{{ $predio->getEstatus() == 1 ? 'Activo' : 'Dado de baja' }}</td>
                                 <td>{{ $predio->objetoEmpleado->getNombre() }}</td>
-                                <td><a href="{{route('programar_actividades_palmeras.showPalmerasPredio', ['predio' => $predio->getPreID()])}}" class="btn btn-success {{ $predio->getEstatus() == 1? '' : 'disabled'}}">Ver</a></td>
+                                <td><a href="{{route('actividades_palmeras.seleccionarPredio', ['predio' => $predio->getPreID()])}}" class="btn btn-success {{ $predio->getEstatus() == 1? '' : 'disabled'}}">Ver</a></td>
                             </tr>
                         @endforeach
                     @endif

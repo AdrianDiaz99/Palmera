@@ -34,4 +34,11 @@ class Empleados extends Model
 
         $this->EmpNombre = $EmpNombre;
     }
+
+    //Funciones del Modelo
+
+    public function crearPredio()
+    {
+        return new Predio();
+    }
 }

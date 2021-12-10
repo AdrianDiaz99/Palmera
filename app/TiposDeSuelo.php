@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\DataBase\TiposDeSueloDAO;
 use Illuminate\Database\Eloquent\Model;
 
 class TiposDeSuelo extends Model
@@ -10,6 +11,14 @@ class TiposDeSuelo extends Model
     protected $primaryKey = 'SueloId';
     protected $fillable = ['SueloNombre'];
     public $timestamps = false;
+
+    private $dao;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->dao = new TiposDeSueloDAO();
+    }
 
     public function getSueloId()
     {
@@ -36,5 +45,11 @@ class TiposDeSuelo extends Model
     public function predios()
     {
         return $this->hasMany(Predio::class, 'PreTipoSuelo');
+    }
+
+    //Funciones del modelo
+    public function getTiposSuelo()
+    {
+        return $this->dao->getTiposSuelo();
     }
 }

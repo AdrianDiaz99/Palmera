@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\DataBase\PredioDAO;
 use Illuminate\Database\Eloquent\Model;
 
 class Predio extends Model
@@ -11,6 +12,14 @@ class Predio extends Model
     protected $fillable = ['PreID', 'PreFactorLluvia', 'PreFactorHumedad', 'PreFactorResequedad', 'PreHectareas', 'PreTipoSuelo', 'Categoria', 'EmpleadoAlta'];
     protected $keyType = 'string';
     public $incrementing = false;
+
+    private $dao;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->dao = new PredioDAO();
+    }
 
     public function getEstatus()
     {
@@ -119,8 +128,34 @@ class Predio extends Model
         return $this->belongsTo(Empleados::class, 'EmpleadoAlta');
     }
 
-    public function Palmeras()
+    public function getPalmeras()
     {
         return $this->hasMany(Palmera::class, 'Predio');
+    }
+
+    //Funciones del modelo
+    public function crearTipoSuelo()
+    {
+        return new TiposDeSuelo();
+    }
+
+    public function crearPalmera()
+    {
+        return new Palmera();
+    }
+
+    public function crearCategoria()
+    {
+        return new Categorias();
+    }
+
+    public function getPagination($collection)
+    {
+        return $this->dao->paginate($collection, 5, $page = null);
+    }
+
+    public function getPredios()
+    {
+        return $this->dao->getPredios();
     }
 }

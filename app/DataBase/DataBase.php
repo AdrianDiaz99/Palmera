@@ -5,8 +5,11 @@ namespace App\DataBase;
 use App\Predio;
 use App\Categorias;
 use App\TiposDeSuelo;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\Paginator;
 use PHPUnit\Framework\MockObject\Exception;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class DataBase extends DB
@@ -121,8 +124,20 @@ class DataBase extends DB
     {
         return TiposDeSuelo::all();
     }
+
     public function getCategorias()
     {
         return Categorias::all();
+    }
+
+    public function paginate($items, $perPage = 2, $page = null)
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, [
+            'path' => Paginator::resolveCurrentPath(),
+            'pageName' => 'page',
+        ]);
     }
 }

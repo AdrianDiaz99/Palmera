@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PredioController;
+use App\Http\Controllers\ActividadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,10 +26,13 @@ Route::get('/predios', 'PredioController@index')->name('predios.index');
 Route::post('/predios', 'PredioController@postEvents')->name('predios.postEvents');
 Route::get('/predios/consultar', 'PredioController@consultar')->name('predios.consultar');
 
-Route::get('/programar_actividades_palmeras/', 'ProgramarActividadesPalmerasController@iniciaProgramarActividades')->name('programar_actividades_palmeras.index');
-Route::get('/programar_actividades_palmeras/{predio}', 'ProgramarActividadesPalmerasController@showPalmerasPredio')->name('programar_actividades_palmeras.showPalmerasPredio');
-Route::post('/programar_actividades_palmeras/', 'ProgramarActividadesPalmerasController@buscarPredio')->name('programar_actividades_palmeras.buscarPredio');
-
+Route::get('/actividades_palmeras/', 'ActividadController@iniciaProgramarActividades')->name('actividades_palmeras.index');
+Route::get('/actividades_palmeras/{predio}', 'ActividadController@seleccionarPredio')->name('actividades_palmeras.seleccionarPredio');
+Route::post('/actividades_palmeras/', 'ActividadController@buscarPredio')->name('actividades_palmeras.buscarPredio');
+Route::get('/actividades_palmeras/predio/{palmera}', 'ActividadController@seleccionaPalmera')->name('actividades_palmeras.seleccionaPalmera');
+Route::get('/actividades_palmeras/actividades/{palmera}', 'ActividadController@actividades')->name('actividades_palmeras.actividades');
+Route::get('/actividades_palmeras/actividades/{palmera}/{actividad}', 'ActividadController@mostrarActividad')->name('actividades_palmeras.agregar_actividad');
+Route::post('/actividades_palmeras/programar_actividad', 'ActividadController@programarActividad')->name('actividades_palmeras.programar_actividad');
 
 Route::get('/home/{opcion}', 'HomeController@eventos')->name('home.eventos');
 

@@ -10950,3 +10950,13 @@ a.text-dark:focus {
   position: fixed;
 }
 
+.big {
+  width: 30px;
+  height: 30px;
+}
+
+.no-padding-x {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
