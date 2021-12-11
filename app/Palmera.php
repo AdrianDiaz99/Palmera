@@ -7,53 +7,73 @@ use Illuminate\Database\Eloquent\Model;
 
 class Palmera extends Model
 {
-    protected $table = 'Palmeras';
-    protected $primaryKey = 'IdPalmera';
-    protected $fillable = ['IdPalmera', 'Variedad', 'Predio', 'Categoria', 'Empleado', 'Estatus'];
-    protected $keyType = 'string';
-    public $incrementing = false;
 
-    private $dao;
+    protected $table      = 'Palmeras';
+    protected $primaryKey = 'IdPalmera';
+    protected $fillable   = ['IdPalmera', 'Variedad', 'Predio', 'Categoria', 'Empleado', 'Estatus'];
+    protected $keyType    = 'string';
+    public $incrementing  = false;
+
+    private $palmeraDAO;
 
     public function __construct()
     {
-        $this->dao = new PalmeraDAO();
+
+        $this->palmeraDAO = new PalmeraDAO();
+
     }
 
+    /* GETTERS Y SETTERS */
     public function getId()
     {
+
         return $this->IdPalmera;
+
     }
 
     public function getEstatus()
     {
+
         return $this->Estatus;
+
     }
 
+
+    /* FUNCIONES DEL DOMINIO DEL PROBLEMA */
     public function objetoVariedad()
     {
-        return $this->belongsTo(Variedades::class, 'Variedad');
+
+        return $this->belongsTo(Variedad::class, 'Variedad');
+
     }
 
     public function objetoCategoria()
     {
-        return $this->belongsTo(Categorias::class, 'Categoria');
+
+        return $this->belongsTo(Categoria::class, 'Categoria');
+
     }
 
     public function objetoEmpleado()
     {
-        return $this->belongsTo(Empleados::class, 'Empleado');
+
+        return $this->belongsTo(Empleado::class, 'Empleado');
+
     }
 
-    //Funciones del modelo
-
+    /* FUNCIONES DE ASOCIACIÓN ENTRE CLASES */
     public function crearActividad()
     {
+
         return new Actividad();
+
     }
 
     public function programarActividad($idPalmera, $idActividad, $frecuencia, $fechaInicio, $fechaFin)
     {
-        $this->dao->programarActividad($idPalmera, $idActividad, $frecuencia, $fechaInicio, $fechaFin);
+
+        $this->palmeraDAO->programarActividad($idPalmera, $idActividad, $frecuencia, $fechaInicio, $fechaFin);
+
     }
+
 }

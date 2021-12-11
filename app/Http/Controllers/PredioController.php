@@ -9,12 +9,24 @@ use Illuminate\Support\Facades\Auth;
 
 class PredioController extends Controller
 {
+
     public $modelo;
+    private $predio;
 
     public function __construct()
     {
-        $this->middleware('auth');
+
         $this->modelo = new PredioModel();
+        $this->predio = new Predio();
+        
+    }
+
+    public function iniciaRegistrarPredio()
+    {
+
+        $categorias = $this->predio->getCategorias();
+        $tipoDeSuelo = $this->predio->getTiposSuelo();
+
     }
 
     public function index()

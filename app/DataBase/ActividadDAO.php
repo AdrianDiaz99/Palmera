@@ -3,15 +3,16 @@
 namespace App\DataBase;
 
 use App\Actividad;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
-
-class ActividadDAO extends DataBase
+class ActividadDAO extends DB
 {
+
     public function getActividades()
     {
+
         return Actividad::where('Estatus', 1)->get(['IdActividad', 'ActNombre', 'ActDescripcion', 'ActCosto']);
+        
     }
+
 }

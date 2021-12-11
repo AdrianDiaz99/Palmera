@@ -4,15 +4,19 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Variedades extends Model
+class Variedad extends Model
 {
-    protected $table = "Variedades";
+
+    protected $table      = "Variedades";
     protected $primaryKey = 'VarID';
-    protected $fillable = ['VarNombre', 'VarDescripcion'];
-    public $timestamps = false;
+    protected $fillable   = ['VarNombre', 'VarDescripcion'];
+    public $timestamps    = false;
 
     public function getVarNombre()
     {
+
         return $this->VarNombre;
+        
     }
+
 }

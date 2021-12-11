@@ -5,6 +5,12 @@ namespace App;
 use App\DataBase\ActividadesDAO;
 use Illuminate\Database\Eloquent\Model;
 
+/*******************************************************
+
+ESTA CLASE SE MIGRARÁ A SU RESPECTIVA CLASE DE DOMINIO QUE A SU VEZ SERÁ EL MODELO
+
+*******************************************************/
+
 define("ORGANICO", 1);
 define("NO_ORGANICO", 2);
 

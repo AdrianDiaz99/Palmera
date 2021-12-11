@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Predio;
 use App\Palmera;
 use App\Actividad;
-use App\TiposDeSuelo;
+use App\TipoDeSuelo;
 use App\ActividadesModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +34,7 @@ class ActividadController extends Controller
     public function iniciaProgramarActividades()
     {
 
-        $tiposSuelo = $this->tipoSuelo->getTiposSuelo();
+        $tiposSuelo = $this->tipoSuelo->getTiposDeSuelo();
         $predios = $this->predio->getPredios();
 
         return view('programar_actividades.palmeras.index', compact('tiposSuelo', 'predios'));

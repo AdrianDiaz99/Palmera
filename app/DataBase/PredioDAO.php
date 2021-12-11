@@ -2,11 +2,12 @@
 
 namespace App\DataBase;
 
-use App\Actividad;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
+use App\Predio;
+use Illuminate\Support\Facades\DB;
 
-class PredioDAO extends DataBase
+class PredioDAO extends DB
 {
+
+    
+
 }
