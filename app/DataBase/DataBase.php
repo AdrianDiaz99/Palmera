@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 ESTA CLASE SE MIGRARÁ A LOS DAO
 
-*******************************************************/
+ *******************************************************/
 class DataBase extends DB
 {
 
@@ -81,35 +81,6 @@ class DataBase extends DB
         return DB::select("CALL sp_obtener_id('$nombreTabla')")[0]->v_idSiguiente;
     }
 
-    public function getPredios()
-    {
-        $args = func_get_args();
-        $predios = Predio::select(
-            [
-                'PreID',
-                'PreFactorLluvia',
-                'PreFactorHumedad',
-                'PreFactorResequedad',
-                'PreHectareas',
-                'PreTipoSuelo',
-                'Categoria',
-                'EmpleadoAlta',
-                'estatus'
-            ]
-        );
-
-        if (count(func_get_args()) > 0) {
-
-            if ($args[0])
-                $predios = $predios->where('PreID', $args[0]);
-
-            if ($args[1])
-                $predios = $predios->where('PreTipoSuelo', $args[1]);
-        }
-
-        return $predios->simplePaginate(10);
-    }
-
     public function getPredio($id)
     {
         try {
@@ -134,16 +105,5 @@ class DataBase extends DB
     public function getCategorias()
     {
         return Categoria::all();
-    }
-
-    public function paginate($items, $perPage = 2, $page = null)
-    {
-        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-        $items = $items instanceof Collection ? $items : Collection::make($items);
-
-        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, [
-            'path' => Paginator::resolveCurrentPath(),
-            'pageName' => 'page',
-        ]);
     }
 }

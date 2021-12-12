@@ -8,11 +8,8 @@ use Illuminate\Support\Facades\DB;
 class ActividadDAO extends DB
 {
 
-    public function getActividades()
+    public function getActividades($palmera)
     {
-
         return Actividad::where('Estatus', 1)->get(['IdActividad', 'ActNombre', 'ActDescripcion', 'ActCosto']);
-        
     }
-
 }

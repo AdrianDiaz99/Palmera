@@ -30,9 +30,8 @@ Route::get('/actividades_palmeras/', 'ActividadController@iniciaProgramarActivid
 Route::get('/actividades_palmeras/{predio}', 'ActividadController@seleccionarPredio')->name('actividades_palmeras.seleccionarPredio');
 Route::post('/actividades_palmeras/', 'ActividadController@buscarPredio')->name('actividades_palmeras.buscarPredio');
 Route::get('/actividades_palmeras/predio/{palmera}', 'ActividadController@seleccionaPalmera')->name('actividades_palmeras.seleccionaPalmera');
-Route::get('/actividades_palmeras/actividades/{palmera}', 'ActividadController@actividades')->name('actividades_palmeras.actividades');
-Route::get('/actividades_palmeras/actividades/{palmera}/{actividad}', 'ActividadController@mostrarActividad')->name('actividades_palmeras.agregar_actividad');
-Route::post('/actividades_palmeras/programar_actividad', 'ActividadController@programarActividad')->name('actividades_palmeras.programar_actividad');
+Route::get('/actividades_palmeras/actividades/{palmera}/{actividad}', 'ActividadController@seleccionaActividad')->name('actividades_palmeras.agregar_actividad');
+Route::post('/actividades_palmeras/programar_actividad', 'ActividadController@agregarActividad')->name('actividades_palmeras.programar_actividad');
 
 Route::get('/home/{opcion}', 'HomeController@eventos')->name('home.eventos');
 

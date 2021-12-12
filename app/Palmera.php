@@ -15,12 +15,13 @@ class Palmera extends Model
     public $incrementing  = false;
 
     private $palmeraDAO;
+    private Actividad $actividad;
 
     public function __construct()
     {
 
         $this->palmeraDAO = new PalmeraDAO();
-
+        $this->actividad = new Actividad();
     }
 
     /* GETTERS Y SETTERS */
@@ -28,52 +29,42 @@ class Palmera extends Model
     {
 
         return $this->IdPalmera;
-
     }
 
     public function getEstatus()
     {
 
         return $this->Estatus;
-
     }
 
 
-    /* FUNCIONES DEL DOMINIO DEL PROBLEMA */
     public function objetoVariedad()
     {
 
         return $this->belongsTo(Variedad::class, 'Variedad');
-
     }
 
     public function objetoCategoria()
     {
 
         return $this->belongsTo(Categoria::class, 'Categoria');
-
     }
 
     public function objetoEmpleado()
     {
 
         return $this->belongsTo(Empleado::class, 'Empleado');
-
     }
 
-    /* FUNCIONES DE ASOCIACIÓN ENTRE CLASES */
-    public function crearActividad()
-    {
-
-        return new Actividad();
-
-    }
-
+    /* FUNCIONES DEL DOMINIO DEL PROBLEMA */
     public function programarActividad($idPalmera, $idActividad, $frecuencia, $fechaInicio, $fechaFin)
     {
 
-        $this->palmeraDAO->programarActividad($idPalmera, $idActividad, $frecuencia, $fechaInicio, $fechaFin);
-
+        return $this->palmeraDAO->programarActividad($idPalmera, $idActividad, $frecuencia, $fechaInicio, $fechaFin);
     }
 
+    public function getActividades($palmera)
+    {
+        return $this->actividad->getActividades($palmera);
+    }
 }

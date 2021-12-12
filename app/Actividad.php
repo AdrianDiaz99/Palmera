@@ -16,13 +16,12 @@ class Actividad extends Model
     private $fechaInicio;
     private $fechaFin;
 
-    private $actividadDAO;
+    private $dao;
 
     public function __construct()
     {
 
-        $this->actividadDAO = new ActividadDAO();
-
+        $this->dao = new ActividadDAO();
     }
 
 
@@ -31,79 +30,67 @@ class Actividad extends Model
     {
 
         return $this->frecuencia;
-
     }
 
     public function getFechaInicio()
     {
 
         return $this->fechaInicio;
-
     }
 
     public function getFechaFin()
     {
 
         return $this->fechaFin;
-
     }
 
     public function setFrecuencia($frecuencia)
     {
 
         $this->frecuencia = $frecuencia;
-
     }
 
     public function setFechaInicio($fechaInicio)
     {
 
         $this->fechaInicio = $fechaInicio;
-
     }
 
     public function setFechaFin($fechaFin)
     {
 
         $this->fechaFin = $fechaFin;
-
     }
 
     public function getId()
     {
 
         return $this->IdActividad;
-
     }
 
     public function getNombre()
     {
 
         return $this->ActNombre;
-
     }
 
     public function getDescripcion()
     {
 
         return $this->ActDescripcion;
-
     }
 
     public function getCosto()
     {
 
         return $this->ActCosto;
-
     }
 
 
     /* FUNCIONES DEL DOMINIO DEL PROBLEMA */
-    public function getActividades()
+    public function getActividades($palmera)
     {
 
-        return $this->actividadDAO->getActividades();
-        
+        return $this->dao->getActividades($palmera);
     }
-
 }

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 ESTA CLASE SE MIGRARÁ A SU RESPECTIVA CLASE DE DOMINIO QUE A SU VEZ SERÁ EL MODELO
 
-*******************************************************/
+ *******************************************************/
 
 class PredioModel extends Model
 {

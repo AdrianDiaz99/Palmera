@@ -13,11 +13,18 @@ class PalmeraDAO extends DB
     {
 
         DB::statement(
-            'CALL sp_insertar_actividad(?, ?, ?, ?, ?, ?)',
+            'CALL sp_insertar_actividad(?, ?, ?, ?, ?, ?, @Estado, @Respuesta)',
             [$idPalmera, $idActividad, $frecuencia, $fechaInicio, $fechaFin, Auth::user()->Empleado->getId()]
         );
 
-        //return DB::unprepared("CALL sp_insertar_actividad('$idPalmera', $idActividad, $frecuencia, '$fechaInicio', '$fechaFin', " . Auth::user()->Empleado->getId()) . ");";
-    }
+        $respuesta = DB::select('SELECT @Respuesta AS Mensaje, @Estado AS Estado')[0];
+        $tipo = $respuesta->Estado == 1 ? 'success' : 'error';
 
+        return json_encode(
+            array(
+                "tipo" => $tipo,
+                "message" => $respuesta->Mensaje
+            )
+        );
+    }
 }

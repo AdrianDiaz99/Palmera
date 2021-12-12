@@ -44,6 +44,7 @@
 
                 </tbody>
             </table>
+            {{$palmeras->links()}}
         </div>
     </div>
 
