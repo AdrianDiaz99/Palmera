@@ -170,6 +170,10 @@ class Predio extends Model
         return $this->hasMany(Palmera::class, 'Predio');
     }
 
+    public function validarCategoria()
+    {
+    }
+
     /**Funciones correspondientes al dominio del problema*/
     public function getActividades()
     {

@@ -10,30 +10,19 @@ use Illuminate\Support\Facades\Auth;
 class PredioController extends Controller
 {
 
-    public $modelo;
     private $predio;
 
     public function __construct()
     {
 
-        $this->modelo = new PredioModel();
         $this->predio = new Predio();
-        
     }
 
     public function iniciaRegistrarPredio()
     {
 
         $categorias = $this->predio->getCategorias();
-        $tipoDeSuelo = $this->predio->getTiposSuelo();
-
-    }
-
-    public function index()
-    {
-
-        $categorias = $this->modelo->getCategorias();
-        $tiposSuelo = $this->modelo->getTiposSuelo();
+        $tipoDeSuelo = $this->predio->getTiposDeSuelo();
         return view('predios.index', compact('categorias', 'tiposSuelo'));
     }
 
@@ -44,11 +33,10 @@ class PredioController extends Controller
             ->with('predios', $predios);
     }
 
-    public function postEvents(Request $request)
+    public function registrarPredio(Request $request)
     {
 
         if (isset($_POST['grabar'])) {
-
 
             $data = request()->validate([
                 'FactorLluvia' => 'required|numeric',
@@ -72,7 +60,7 @@ class PredioController extends Controller
                 )
             );
 
-            $respuesta = json_decode($this->modelo->agregarPredio($predio));
+            $respuesta = json_decode($this->predio->agregarPredio($predio));
 
             return redirect()->action("PredioController@index")->with($respuesta->tipo, $respuesta->mensaje);
         }

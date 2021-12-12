@@ -22,8 +22,8 @@ Route::get('/', function () {
 
 //Route::resource('/predios', 'PredioController');
 
-Route::get('/predios', 'PredioController@index')->name('predios.index');
-Route::post('/predios', 'PredioController@postEvents')->name('predios.postEvents');
+Route::get('/predios', 'PredioController@iniciaRegistrarPredio')->name('predios.index');
+Route::post('/predios', 'PredioController@registrarPredio')->name('predios.postEvents');
 Route::get('/predios/consultar', 'PredioController@consultar')->name('predios.consultar');
 
 Route::get('/actividades_palmeras/', 'ActividadPalmeraController@iniciaProgramarActividades')->name('actividades_palmeras.index');
