@@ -5,6 +5,10 @@ namespace App;
 use App\DataBase\PredioDAO;
 use Illuminate\Database\Eloquent\Model;
 
+
+define('ORGANICO', 1);
+define('NO_ORGANICO', 2);
+
 class Predio extends Model
 {
 
@@ -14,16 +18,17 @@ class Predio extends Model
     protected $keyType    = 'string';
     public $incrementing  = false;
 
-    private $predioDAO;
+    private  PredioDAO $dao;
 
     private Categoria $categoria;
     private TipoDeSuelo $tipoDeSuelo;
     private Palmera $palmera;
 
+
     public function __construct()
     {
 
-        $this->predioDAO   = new PredioDAO();
+        $this->dao   = new PredioDAO();
         $this->categoria   = new Categoria();
         $this->tipoDeSuelo = new TipoDeSuelo();
         $this->palmera      = new Palmera();
@@ -166,10 +171,10 @@ class Predio extends Model
     }
 
     /**Funciones correspondientes al dominio del problema*/
-    public function getActividades($palmera)
+    public function getActividades()
     {
 
-        return $this->palmera->getActividades($palmera);
+        return $this->palmera->getActividades();
     }
 
     public function getCategorias()
@@ -186,13 +191,46 @@ class Predio extends Model
 
     public function getPredios()
     {
+        $args = func_get_args();
 
-        return $this->predioDAO->getPredios();
+        if (count(func_get_args()) == 3) {
+            return $this->dao->getPredios($args[0], $args[1], $args[2]);
+        }
+
+        return $this->dao->getPredios($args[0]);
     }
 
-    public function programarActividad($idPalmera, $idActividad, $frecuencia, $fechaInicio, $fechaFin)
+    public function getPrediosOrganicos()
     {
 
-        return $this->palmera->programarActividad($idPalmera, $idActividad, $frecuencia, $fechaInicio, $fechaFin);
+        $args = func_get_args();
+
+        if (count(func_get_args()) == 2) {
+            return $this->getPredios(ORGANICO, $args[0], $args[1]);
+        }
+
+        return $this->getPredios(ORGANICO);
+    }
+
+    public function getPrediosNoOrganicos()
+    {
+        $args = func_get_args();
+
+        if (count(func_get_args()) == 2) {
+            return $this->getPredios(NO_ORGANICO, $args[0], $args[1]);
+        }
+
+        return $this->getPredios(NO_ORGANICO);
+    }
+
+    public function agregarActividadPalmera($idPalmera, $idActividad, $frecuencia, $fechaInicio, $fechaFin)
+    {
+
+        return $this->palmera->agregarActividadPalmera($idPalmera, $idActividad, $frecuencia, $fechaInicio, $fechaFin);
+    }
+
+    public function agregarActividadPredio(Predio $predio, $idActividad, $frecuencia, $fechaInicio, $fechaFin)
+    {
+        return $this->dao->agregarActividadPredio($predio, $idActividad, $frecuencia, $fechaInicio, $fechaFin);
     }
 }

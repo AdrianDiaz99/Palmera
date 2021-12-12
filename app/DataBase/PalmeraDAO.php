@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class PalmeraDAO extends DB
 {
 
-    public function programarActividad($idPalmera, $idActividad, $frecuencia, $fechaInicio, $fechaFin)
+    public function agregarActividadPalmera($idPalmera, $idActividad, $frecuencia, $fechaInicio, $fechaFin)
     {
 
         DB::statement(

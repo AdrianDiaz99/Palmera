@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('active_reference')
-    {{ Breadcrumbs::render('actividades_palmeras.index') }}
+    {{ Breadcrumbs::render('actividades_predios.index') }}
 @endsection
 
 @section('content')
@@ -24,7 +24,7 @@
             </div>
 
         @endif
-        <form method="POST" action="{{ route('actividades_palmeras.buscarPredio') }}">
+        <form method="POST" action="{{ route('actividades_predios.buscarPredio') }}">
             @csrf
             <div class="form-group">
                 <label for="IdPredio">ID Predio</label>
@@ -97,7 +97,7 @@
                                 <td>{{ $predio->objetoCategoria->getCatNombre() }}</td>
                                 <td>{{ $predio->getEstatus() == 1 ? 'Activo' : 'Dado de baja' }}</td>
                                 <td>{{ $predio->objetoEmpleado->getNombre() }}</td>
-                                <td><a href="{{route('actividades_palmeras.seleccionarPredio', ['predio' => $predio->getPreID()])}}" class="btn btn-success {{ $predio->getEstatus() == 1? '' : 'disabled'}}">Ver</a></td>
+                                <td><a href="{{route('actividades_predios.seleccionarPredio', ['predio' => $predio->getPreID()])}}" class="btn btn-success {{ $predio->getEstatus() == 1? '' : 'disabled'}}">Ver</a></td>
                             </tr>
                         @endforeach
                     @endif

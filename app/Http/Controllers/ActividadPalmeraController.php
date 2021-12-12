@@ -11,7 +11,7 @@ use App\ActividadesModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ActividadController extends Controller
+class ActividadPalmeraController extends Controller
 {
     private $predio;
 
@@ -19,14 +19,13 @@ class ActividadController extends Controller
     {
         $this->middleware('auth');
         $this->predio = new Predio();
-        //$this->modelo = new ActividadesModel();
     }
 
     public function iniciaProgramarActividades()
     {
 
         $tiposSuelo = $this->predio->getTiposDeSuelo();
-        $predios = $this->predio->getPredios();
+        $predios = $this->predio->getPrediosNoOrganicos();
 
         return view('programar_actividades.palmeras.index', compact('tiposSuelo', 'predios'));
     }
@@ -38,15 +37,15 @@ class ActividadController extends Controller
         return view('programar_actividades.palmeras.palmeras_predio', compact('predio', 'palmeras'));
     }
 
-    public function seleccionaPalmera(Palmera $palmera)
+    public function seleccionaPalmera(Predio $predio, Palmera $palmera)
     {
         $actividades = $this->predio->getActividades($palmera);
-        return view('programar_actividades.palmeras.actividades', compact('palmera', 'actividades'));
+        return view('programar_actividades.palmeras.actividades', compact('predio', 'palmera', 'actividades'));
     }
 
-    public function seleccionaActividad(Palmera $palmera, Actividad $actividad)
+    public function seleccionaActividad(Predio $predio, Palmera $palmera, Actividad $actividad)
     {
-        return view('programar_actividades.palmeras.actividad', compact('palmera', 'actividad'));
+        return view('programar_actividades.palmeras.actividad', compact('predio', 'palmera', 'actividad'));
     }
 
     public function agregarActividad(Request $request)
@@ -58,7 +57,7 @@ class ActividadController extends Controller
         ]);
 
         $respuesta = json_decode(
-            $this->predio->programarActividad(
+            $this->predio->agregarActividadPalmera(
                 $request['IdPalmera'],
                 $request['IdActividad'],
                 $request['Frecuencia'],
@@ -69,15 +68,17 @@ class ActividadController extends Controller
 
         return redirect()->route(
             'actividades_palmeras.seleccionaPalmera',
-            ["palmera" => $request['IdPalmera']]
+            [
+                "predio" => $request['IdPredio'],
+                "palmera" => $request['IdPalmera']
+            ]
         )->with($respuesta->tipo, $respuesta->message);
     }
 
     public function buscarPredio(Request $request)
     {
-
-        $predios = $this->modelo->getPredios($request['IdPredio'], $request['TipoSuelo']);
-        $tiposSuelo = $this->modelo->getTiposSuelo();
+        $predios = $this->predio->getPrediosNoOrganicos($request['IdPredio'], $request['TipoSuelo']);
+        $tiposSuelo = $this->predio->getTiposDeSuelo();
 
         return view('programar_actividades.palmeras.index', compact('predios', 'tiposSuelo'));
     }

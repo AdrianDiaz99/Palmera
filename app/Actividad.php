@@ -88,9 +88,9 @@ class Actividad extends Model
 
 
     /* FUNCIONES DEL DOMINIO DEL PROBLEMA */
-    public function getActividades($palmera)
+    public function getActividades()
     {
 
-        return $this->dao->getActividades($palmera);
+        return $this->dao->getActividades();
     }
 }

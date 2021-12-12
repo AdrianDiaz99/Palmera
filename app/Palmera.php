@@ -57,14 +57,14 @@ class Palmera extends Model
     }
 
     /* FUNCIONES DEL DOMINIO DEL PROBLEMA */
-    public function programarActividad($idPalmera, $idActividad, $frecuencia, $fechaInicio, $fechaFin)
+    public function agregarActividadPalmera($idPalmera, $idActividad, $frecuencia, $fechaInicio, $fechaFin)
     {
 
-        return $this->palmeraDAO->programarActividad($idPalmera, $idActividad, $frecuencia, $fechaInicio, $fechaFin);
+        return $this->palmeraDAO->agregarActividadPalmera($idPalmera, $idActividad, $frecuencia, $fechaInicio, $fechaFin);
     }
 
-    public function getActividades($palmera)
+    public function getActividades()
     {
-        return $this->actividad->getActividades($palmera);
+        return $this->actividad->getActividades();
     }
 }

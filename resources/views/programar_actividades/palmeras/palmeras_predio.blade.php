@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('active_reference')
+    {{ Breadcrumbs::render('actividades_palmeras.seleccionarPredio', $predio) }}
+@endsection
+
 @section('content')
 
     <div class="container-lg mt-2">
@@ -37,7 +41,13 @@
                             <td>{{ $palmera->objetoCategoria->getCatNombre() }}</td>
                             <td>{{ $palmera->objetoEmpleado->getNombre() }}</td>
                             <td>{{ $palmera->getEstatus() == 1 ? 'Activo' : 'Dado de baja' }}</td>
-                            <td><a href="{{route("actividades_palmeras.seleccionaPalmera", ['palmera' => $palmera->getId()])}}" class="btn btn-success {{ $palmera->getEstatus() == 1? '' : 'disabled'}}">Ver</a></td>
+                            <td><a 
+                                href="{{route("actividades_palmeras.seleccionaPalmera", [
+                                    'predio' => $predio->getPreID(), 
+                                    'palmera' => $palmera->getId()
+                                ])}}" 
+                                class="btn btn-success {{ $palmera->getEstatus() == 1? '' : 'disabled'}}">Ver
+                            </a></td>
                         </td>
                         </tr>
                     @endforeach

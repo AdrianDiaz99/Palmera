@@ -35,6 +35,7 @@
                     <!-- Left Side Of Navbar -->
 
                     <ul class="navbar-nav mr-auto">
+                        @yield('active_reference')
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -60,9 +61,16 @@
 
                                             <a 
                                             class="dropdown-item" 
-                                            href="{{ route('home.eventos', ['opcion' => "ProgramarActividades"]) }}"
+                                            href="{{ route('home.eventos', ['opcion' => "ProgramarActividadesPalmeras"]) }}"
                                             >
                                                 Programar actividades a palmeras
+                                            </a>
+
+                                            <a 
+                                            class="dropdown-item" 
+                                            href="{{ route('home.eventos', ['opcion' => "ProgramarActividadesPredios"]) }}"
+                                            >
+                                                Programar actividades a predios
                                             </a>
                                         @endauth
                                         

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('active_reference')
-    {{ Breadcrumbs::render('actividades_palmeras.agregar_actividad', $predio, $palmera, $actividad) }}
+    {{ Breadcrumbs::render('actividades_predios.agregar_actividad', $predio, $actividad) }}
 @endsection
 
 @section('content')
@@ -26,7 +26,7 @@
 
         @endif
 
-        <form method="POST" action="{{ route('actividades_palmeras.programar_actividad') }}">
+        <form method="POST" action="{{ route('actividades_predios.programar_actividad') }}">
             @csrf
 
             <input 
@@ -37,20 +37,6 @@
                 value="{{ $predio->getPreID() }}"
                 readonly
             >
-
-            <div class="form-group">
-
-                <label for="IdPalmera">ID Palmera</label>
-                <input 
-                    type="text" 
-                    class="form-control" 
-                    id="IdPalmera"
-                    name="IdPalmera"
-                    value="{{ $palmera->getId() }}"
-                    readonly
-                >
-
-            </div>
             
             <div class="form-group">
                 <label for="IdActividad">ID Actividad</label>

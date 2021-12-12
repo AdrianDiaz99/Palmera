@@ -10960,3 +10960,8 @@ a.text-dark:focus {
   padding-right: 0px !important;
 }
 
+.breadcrumb {
+  margin-bottom: 0 !important;
+  background-color: transparent !important;
+}
+
