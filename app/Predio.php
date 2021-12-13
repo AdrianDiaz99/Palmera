@@ -173,6 +173,43 @@ class Predio extends Model
         return $this->hasMany(Palmera::class, 'Predio');
     }
 
+    public function eliminarPredio($id)
+    {
+
+        $respuesta = $this->dao->eliminarPredio($id);
+
+        return json_encode($respuesta);
+    }
+
+    public function actualizarPredio($data)
+    {
+        $predio = Predio::findOrFail($data['IdPredio']);
+
+        if ($predio->getEstatus() == 0) {
+
+            return json_encode(
+                $respuesta = array(
+                    "tipo" => "error",
+                    "mensaje" => "El predio se encuentra dado de baja"
+                )
+            );
+        }
+
+        $predio->setFactorLluvia($data['FactorLluvia']);
+        $predio->setFactorHumedad($data['FactorHumedad']);
+        $predio->setFactorResequedad($data['FactorResequedad']);
+        $predio->setHectareas($data['Hectareas']);
+        $predio->setTipoSuelo($data['TipoSuelo']);
+        $predio->setCategoria($data['Categoria']);
+
+        return $this->dao->actualizarPredio($predio);
+    }
+
+    public function getPredio($id)
+    {
+        return $this->dao->getPredio($id);
+    }
+
     public function agregarPredio(Predio $predio)
     {
         if ($predio->Categoria == 2) {

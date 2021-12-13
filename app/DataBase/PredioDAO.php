@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PredioDAO extends DataBase
 {
 
     public function agregarPredio($predio)
     {
-
         try {
 
             $idPredio = $this->obtenerUltimoId("Predios");
@@ -35,6 +35,52 @@ class PredioDAO extends DataBase
         }
 
         return json_encode($respuesta);
+    }
+
+    public function eliminarPredio($id)
+    {
+        return DB::select("CALL sp_eliminar_predios('$id')")[0];
+    }
+
+    public function actualizarPredio($predio)
+    {
+        try {
+
+            $predio->saveOrFail();
+
+            $respuesta = array(
+                "tipo" => "message",
+                "mensaje" => "Predio guardado correctamente"
+            );
+        } catch (ModelNotFoundException  $e) {
+            $respuesta = array(
+                "tipo" => "error",
+                "mensaje" => "No existe predio"
+            );
+        } catch (Exception $e) {
+            $respuesta = array(
+                "tipo" => "error",
+                "mensaje" => "No se pudo actualizar el predio en la base de datos. \n\nDetalle del error: {$e->getMessage()}"
+            );
+        }
+
+        return json_encode($respuesta);
+    }
+
+    public function getPredio($id)
+    {
+        try {
+
+            $predio = Predio::findOrFail($id);
+
+            if ($predio->getEstatus() == 0) {
+                return "El predio se encuentra dado de baja";
+            }
+
+            return $predio;
+        } catch (Exception $e) {
+            return "No se encontró el predio";
+        }
     }
 
     public function getPredios()

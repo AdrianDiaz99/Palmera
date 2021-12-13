@@ -78,17 +78,17 @@ class PredioController extends Controller
                 'IdPredio' => 'required|size:4'
             ]);
 
-            $respuesta = $this->modelo->getPredio($data['IdPredio']);
+            $respuesta = $this->predio->getPredio($data['IdPredio']);
 
             if (!$respuesta instanceof Predio) {
                 return redirect()->action("PredioController@index")->with('error', $respuesta);
             }
 
             $predio = $respuesta;
-            $categorias = $this->modelo->getCategorias();
-            $tiposSuelo = $this->modelo->getTiposSuelo();
+            $categorias = $this->predio->getCategorias();
+            $tiposDeSuelo = $this->predio->getTiposDeSuelo();
 
-            return view('predios.index', compact('predio', 'categorias', 'tiposSuelo'));
+            return view('predios.index', compact('predio', 'categorias', 'tiposDeSuelo'));
         }
 
         if (isset($_POST['actualizar'])) {
@@ -103,7 +103,7 @@ class PredioController extends Controller
                 'Categoria' => 'required'
             ]);
 
-            $respuesta = json_decode($this->modelo->actualizarPredio($data));
+            $respuesta = json_decode($this->predio->actualizarPredio($data));
 
             return redirect()->action("PredioController@index")->with($respuesta->tipo, $respuesta->mensaje);
         }
@@ -114,7 +114,7 @@ class PredioController extends Controller
                 'IdPredio' => 'size:4'
             ]);
 
-            $respuesta = json_decode($this->modelo->eliminarPredio($data['IdPredio']));
+            $respuesta = json_decode($this->predio->eliminarPredio($data['IdPredio']));
 
             return redirect()->action("PredioController@index")->with($respuesta->tipo, $respuesta->mensaje);
         }
