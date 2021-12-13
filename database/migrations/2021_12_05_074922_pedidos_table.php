@@ -17,10 +17,10 @@ class PedidosTable extends Migration
 
         Schema::create('Pedidos', function (Blueprint $table) {
             $table->id('idPedido');
-            $table->timestamp('FechaPedido');
+            $table->timestamp('FechaPedido')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->foreignId('Cliente')->references('idCliente')->on('Clientes');
-            $table->foreignId('Empleado')->references('EmpID')->on('Empleados');
-            $table->boolean('Entregado');
+            $table->foreignId('Empleado')->nullable()->references('EmpID')->on('Empleados');
+            $table->boolean('Entregado')->default(false);
             $table->timestamp('FechaEntregado')->nullable();
         });
     }
