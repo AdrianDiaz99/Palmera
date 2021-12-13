@@ -213,6 +213,7 @@ class Predio extends Model
 
     public function agregarPredio(Predio $predio)
     {
+
         if ($predio->Categoria == 2) {
             return $this->dao->agregarPredio($predio);
         }
@@ -236,7 +237,7 @@ class Predio extends Model
 
         $response = Http::withHeaders([
             'Content-Type' => 'application/json'
-        ])->post('https://localhost:44348/api/Default/', [
+        ])->post('https://serviciospalmera.azurewebsites.net/api/Predio/', [
             'body' => '
                 {
                     "PreTipoSuelo" : "' . $this->PreTipoSuelo . '",
