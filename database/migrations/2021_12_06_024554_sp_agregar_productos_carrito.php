@@ -14,12 +14,11 @@ class SpAgregarProductosCarrito extends Migration
      */
     public function up()
     {
-        
         DB::unprepared("
         
         DROP PROCEDURE IF EXISTS sp_agregar_productos_carrito;
         
-        CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_agregar_productos_carrito`(IN cliente INT, IN datil INT, IN cantidadRequerida BIGINT)
+        CREATE PROCEDURE `sp_agregar_productos_carrito`(IN cliente INT, IN datil INT, IN cantidadRequerida BIGINT)
         inicio: BEGIN
 
             DECLARE stockDisponible BIGINT;
@@ -68,7 +67,6 @@ class SpAgregarProductosCarrito extends Migration
         COMMIT;
 
         END");
-
     }
 
     /**
@@ -78,8 +76,7 @@ class SpAgregarProductosCarrito extends Migration
      */
     public function down()
     {
-        
-        DB::unprepared('DROP PROCEDURE `sp_agregar_productos_carrito` ');
 
+        DB::unprepared('DROP PROCEDURE `sp_agregar_productos_carrito` ');
     }
 }

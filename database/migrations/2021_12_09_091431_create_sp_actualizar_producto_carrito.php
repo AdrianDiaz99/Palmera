@@ -17,7 +17,7 @@ class CreateSpActualizarProductoCarrito extends Migration
         
         DROP PROCEDURE IF EXISTS sp_actualizar_producto_carrito;
         
-        CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_actualizar_producto_carrito`(IN cliente INT, IN datil INT, IN cantidadRequerida BIGINT)
+        CREATE PROCEDURE `sp_actualizar_producto_carrito`(IN cliente INT, IN datil INT, IN cantidadRequerida BIGINT)
         inicio: BEGIN
         
         DECLARE stockDisponible BIGINT;

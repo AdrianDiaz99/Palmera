@@ -1,23 +1,21 @@
 <?php
 
-namespace App;
+namespace App\DataBase;
 
-use PDO;
+use Exception;
+use App\Predio;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use PHPUnit\Framework\MockObject\Exception;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class DataBase extends DB
+class PredioDAO extends DataBase
 {
-
-    public function eliminarPredio($id)
-    {
-        return DB::select("CALL sp_eliminar_predios('$id')")[0];
-    }
 
     public function agregarPredio($predio)
     {
-
         try {
 
             $idPredio = $this->obtenerUltimoId("Predios");
@@ -37,6 +35,11 @@ class DataBase extends DB
         }
 
         return json_encode($respuesta);
+    }
+
+    public function eliminarPredio($id)
+    {
+        return DB::select("CALL sp_eliminar_predios('$id')")[0];
     }
 
     public function actualizarPredio($predio)
@@ -64,29 +67,6 @@ class DataBase extends DB
         return json_encode($respuesta);
     }
 
-    public function obtenerUltimoId($nombreTabla)
-    {
-
-        return DB::select("CALL sp_obtener_id('$nombreTabla')")[0]->v_idSiguiente;
-    }
-
-    public function getPredios()
-    {
-        return Predio::select(
-            [
-                'PreID',
-                'PreFactorLluvia',
-                'PreFactorHumedad',
-                'PreFactorResequedad',
-                'PreHectareas',
-                'PreTipoSuelo',
-                'Categoria',
-                'EmpleadoAlta',
-                'estatus'
-            ]
-        )->simplePaginate(5);
-    }
-
     public function getPredio($id)
     {
         try {
@@ -103,12 +83,59 @@ class DataBase extends DB
         }
     }
 
-    public function getTiposSuelo()
+    public function getPredios()
     {
-        return TiposDeSuelo::all();
+        $args = func_get_args();
+
+
+        $predios = Predio::select(
+            [
+                'PreID',
+                'PreFactorLluvia',
+                'PreFactorHumedad',
+                'PreFactorResequedad',
+                'PreHectareas',
+                'PreTipoSuelo',
+                'Categoria',
+                'EmpleadoAlta',
+                'estatus'
+            ]
+        );
+
+        if (count(func_get_args()) > 0) {
+
+            $categoria = $args[0];
+            $predios = $predios->where('Categoria', $categoria);
+        }
+
+        if (count(func_get_args()) == 3) {
+
+            if ($args[1])
+                $predios = $predios->where('PreID', $args[1]);
+
+            if ($args[2])
+                $predios = $predios->where('PreTipoSuelo', $args[2]);
+        }
+
+        return $predios->simplePaginate(5);
     }
-    public function getCategorias()
+
+    public function agregarActividadPredio(Predio $predio, $idActividad, $frecuencia, $fechaInicio, $fechaFin)
     {
-        return Categorias::all();
+
+        DB::statement(
+            'CALL sp_insertar_actividad_predio(?, ?, ?, ?, ?, ?, @Estado, @Respuesta)',
+            [$predio->getPreID(), $idActividad, $frecuencia, $fechaInicio, $fechaFin, Auth::user()->Empleado->getId()]
+        );
+
+        $respuesta = DB::select('SELECT @Respuesta AS Mensaje, @Estado AS Estado')[0];
+        $tipo = $respuesta->Estado == 1 ? 'success' : 'error';
+
+        return json_encode(
+            array(
+                "tipo" => $tipo,
+                "message" => $respuesta->Mensaje
+            )
+        );
     }
 }

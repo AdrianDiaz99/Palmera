@@ -14,7 +14,7 @@ class CarritoDeComprasTable extends Migration
     public function up()
     {
         
-        Schema::create('productoscarrito', function (Blueprint $table) {
+        Schema::create('ProductosCarrito', function (Blueprint $table) {
             $table->foreignId('idCliente')->references('idCliente')->on('Clientes');
             $table->foreignId('idDatil')->references('idDatil')->on('Datiles');
             $table->bigInteger('cantidad');
@@ -31,7 +31,7 @@ class CarritoDeComprasTable extends Migration
     public function down()
     {
         
-        Schema::dropIfExists('productoscarrito');
+        Schema::dropIfExists('ProductosCarrito');
 
     }
 }

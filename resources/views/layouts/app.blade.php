@@ -21,7 +21,8 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm landmark">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -34,6 +35,7 @@
                     <!-- Left Side Of Navbar -->
 
                     <ul class="navbar-nav mr-auto">
+                        @yield('active_reference')
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -48,12 +50,36 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     @yield('opciones')
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-                                    
+
+                                        @auth
+                                            <a 
+                                            class="dropdown-item" 
+                                            href="{{ route('home.eventos', ['opcion' => "Predios"]) }}"
+                                            >
+                                                Predios
+                                            </a>
+
+                                            <a 
+                                            class="dropdown-item" 
+                                            href="{{ route('home.eventos', ['opcion' => "ProgramarActividadesPalmeras"]) }}"
+                                            >
+                                                Programar actividades a palmeras
+                                            </a>
+
+                                            <a 
+                                            class="dropdown-item" 
+                                            href="{{ route('home.eventos', ['opcion' => "ProgramarActividadesPredios"]) }}"
+                                            >
+                                                Programar actividades a predios
+                                            </a>
+                                        @endauth
+                                        
+
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
@@ -68,12 +94,11 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div class="mt-5">
+                @yield('content')
+            </div>
         </main>
 
-        <main class="py-4">
-            @yield('lista_predios')
-        </main>
 
     </div>
 </body>

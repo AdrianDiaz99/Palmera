@@ -1,21 +1,7 @@
-@extends('layouts.app');
+@extends('layouts.app')
 
-
-@section('opciones')
-
-<a 
-    class="dropdown-item" 
-    href="{{ route('home.eventos', ['opcion' => "Predios"]) }}"
->
-    Predios
-</a>
-<a 
-    class="dropdown-item" 
-    href="{{ route('home.eventos', ['opcion' => "ProgramarActividades"]) }}"
->
-        Programar Actividades
-</a>
-
+@section('active_reference')
+    {{ Breadcrumbs::render('predios.index') }}
 @endsection
 
 @section('content')
@@ -39,6 +25,7 @@
             </div>
 
         @endif
+        
 
         <form method="POST" action="{{ route('predios.postEvents') }}">
             @csrf
@@ -72,7 +59,7 @@
                     id="FactorLluvia"
                     placeholder="Indicador de lluvia" 
                     name="FactorLluvia" 
-                    value="{{isset($predio)? $predio->getFactorLluvia() : old('FactorLluvia')}}"
+                    value="@if(\Session::has('predio')){{\Session::get('predio')->getFactorLluvia()}}@endif{{isset($predio)? $predio->getFactorLluvia() : old('FactorLluvia')}}"
 
                 >
 
@@ -91,7 +78,7 @@
                     id="FactorHumedad"
                     placeholder="Indicador de humedad" 
                     name="FactorHumedad" 
-                    value = "{{isset($predio)? $predio->getFactorHumedad() : old('FactorHumedad')}}"
+                    value = "@if(\Session::has('predio')){{\Session::get('predio')->getFactorHumedad()}}@endif{{isset($predio)? $predio->getFactorHumedad() : old('FactorHumedad')}}"
                 >
 
                 @error('FactorHumedad')
@@ -109,7 +96,7 @@
                     id="FactorResequedad" 
                     placeholder="Indicador de resequedad" 
                     name="FactorResequedad"
-                    value = "{{isset($predio)? $predio->getFactorResequedad() : old('FactorResequedad')}}"
+                    value = "@if(\Session::has('predio')){{\Session::get('predio')->getFactorResequedad()}}@endif{{isset($predio)? $predio->getFactorResequedad() : old('FactorResequedad')}}"
                 >
 
                 @error('FactorResequedad')
@@ -128,7 +115,7 @@
                     id="Hectareas"
                     placeholder="Cantidad de hectareas" 
                     name="Hectareas"
-                    value = "{{isset($predio)? $predio->getHectareas() : old('Hectareas')}}"
+                    value = "@if(\Session::has('predio')){{\Session::get('predio')->getHectareas()}}@endif{{isset($predio)? $predio->getHectareas() : old('Hectareas')}}"
                 >
 
                 @error('Hectareas')
@@ -148,10 +135,10 @@
                     name="TipoSuelo"
                 >
                     <option value="">-- Seleccione --</option>
-                    @foreach( $tiposSuelo as $tipoSuelo)
+                    @foreach( $tiposDeSuelo as $tipoSuelo)
                         <option 
                             value="{{$tipoSuelo->getSueloId()}}" 
-                            {{($tipoSuelo->getSueloId() == old('TipoSuelo') || (isset($predio)? $tipoSuelo->getSueloId() == $predio->getTipoSuelo() : false))? 'selected' : ''}}
+                            @if(\Session::has('predio')){{\Session::get('predio')->getTipoSuelo() == $tipoSuelo->getSueloId()? 'selected' : ''}}@endif{{($tipoSuelo->getSueloId() == old('TipoSuelo') || (isset($predio)? $tipoSuelo->getSueloId() == $predio->getTipoSuelo() : false))? 'selected' : ''}}
                         >
                             {{$tipoSuelo->getSueloNombre()}}
                         </option>
@@ -178,7 +165,7 @@
                     @foreach( $categorias as $categoria)
                         <option 
                             value="{{$categoria->getId()}}" 
-                            {{($categoria->getId() == old('Categoria') || (isset($predio)? $categoria->getId() == $predio->getCategoria() : false))? 'selected' : ''}}
+                            @if(\Session::has('predio')){{\Session::get('predio')->getCategoria() == $categoria->getId()? 'selected' : ''}}@endif{{($categoria->getId() == old('Categoria') || (isset($predio)? $categoria->getId() == $predio->getCategoria() : false))? 'selected' : ''}}
                         >
                             {{$categoria->getCatNombre()}}
                         </option>
@@ -227,7 +214,7 @@
                 Consultar
             </a>
 
-            <a href="{{ action('PredioController@index') }}" class="btn btn-dark mb-1 mt-1">Limpiar</a>
+            <a href="{{ route('predios.index') }}" class="btn btn-dark mb-1 mt-1">Limpiar</a>
         </form>
 
     </div>

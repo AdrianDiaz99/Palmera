@@ -1,15 +1,12 @@
-@extends('layouts.app');
+@extends('layouts.app')
+
+@section('active_reference')
+    {{ Breadcrumbs::render('predios.consultar') }}
+@endsection
 
 @section('content')
 
     <div class="container-lg mt-2">
-
-        <a 
-            href="{{route('predios.index')}}" 
-            class="btn btn-dark mb-3 mt-1" 
-        >
-            Regresar
-        </a>
 
         <div class="table-wrapper">
             <div class="row">

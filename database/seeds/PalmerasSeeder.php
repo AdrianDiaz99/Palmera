@@ -140,7 +140,8 @@ class PalmerasSeeder extends Seeder
             'Categoria' => 1,
             'Empleado' => 3,
             'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
+            'updated_at' => date('Y-m-d H:i:s'),
+            'Estatus' => 0
         ]);
         DB::table('Palmeras')->insert([
             'IdPalmera' => 'PAL015',

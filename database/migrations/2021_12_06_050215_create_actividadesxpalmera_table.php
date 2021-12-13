@@ -15,6 +15,7 @@ class CreateActividadesxpalmeraTable extends Migration
     {
         Schema::create('actividadesxpalmera', function (Blueprint $table) {
             $table->string('IdPalmera', 6);
+            $table->foreign('IdPalmera')->references('IdPalmera')->on('Palmeras');
             $table->foreignId('IdActividad')->references('IdActividad')->on('Actividades');
             $table->string('Año', 4);
             $table->bigInteger('Consecutivo');
