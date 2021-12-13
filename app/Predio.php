@@ -173,6 +173,7 @@ class Predio extends Model
         return $this->hasMany(Palmera::class, 'Predio');
     }
 
+    /**Funciones correspondientes al dominio del problema*/
     public function eliminarPredio($id)
     {
 
@@ -250,7 +251,6 @@ class Predio extends Model
         return $response->json();
     }
 
-    /**Funciones correspondientes al dominio del problema*/
     public function getActividades()
     {
 
@@ -277,7 +277,10 @@ class Predio extends Model
             return $this->dao->getPredios($args[0], $args[1], $args[2]);
         }
 
-        return $this->dao->getPredios($args[0]);
+        if (count(func_get_args()) == 1)
+            return $this->dao->getPredios($args[0]);
+
+        return $this->dao->getPredios();
     }
 
     public function getPrediosOrganicos()

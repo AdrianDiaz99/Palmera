@@ -46,3 +46,14 @@ Breadcrumbs::for('actividades_predios.agregar_actividad', function ($trail, $pre
     $trail->parent('actividades_predios.seleccionarPredio', $predio);
     $trail->push($actividad->getNombre(), route('actividades_predios.agregar_actividad', ["predio" => $predio->getPreID(), 'actividad' => $actividad->getId()]));
 });
+
+//Active reference para el registro de predios
+Breadcrumbs::for('predios.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Registro de predios', route('predios.index'));
+});
+
+Breadcrumbs::for('predios.consultar', function ($trail) {
+    $trail->parent('predios.index');
+    $trail->push('Consulta de predios', route('predios.consultar'));
+});

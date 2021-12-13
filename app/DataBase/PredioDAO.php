@@ -87,7 +87,6 @@ class PredioDAO extends DataBase
     {
         $args = func_get_args();
 
-        $categoria = $args[0];
 
         $predios = Predio::select(
             [
@@ -101,7 +100,13 @@ class PredioDAO extends DataBase
                 'EmpleadoAlta',
                 'estatus'
             ]
-        )->where('Categoria', $categoria);
+        );
+
+        if (count(func_get_args()) > 0) {
+
+            $categoria = $args[0];
+            $predios = $predios->where('Categoria', $categoria);
+        }
 
         if (count(func_get_args()) == 3) {
 
@@ -112,7 +117,7 @@ class PredioDAO extends DataBase
                 $predios = $predios->where('PreTipoSuelo', $args[2]);
         }
 
-        return $predios->simplePaginate(10);
+        return $predios->simplePaginate(5);
     }
 
     public function agregarActividadPredio(Predio $predio, $idActividad, $frecuencia, $fechaInicio, $fechaFin)

@@ -15,7 +15,7 @@ class CreateSpEliminarPredio extends Migration
 
         DROP PROCEDURE IF EXISTS sp_eliminar_predios;
 
-        CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_eliminar_predios`(IN idPredio VARCHAR(4))
+        CREATE PROCEDURE `sp_eliminar_predios`(IN idPredio VARCHAR(4))
         inicio : BEGIN
 
             SET TRANSACTION ISOLATION LEVEL repeatable read;

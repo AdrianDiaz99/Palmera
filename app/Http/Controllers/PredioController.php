@@ -28,7 +28,7 @@ class PredioController extends Controller
 
     public function consultar()
     {
-        $predios = $this->modelo->getPrediosParaCrud();
+        $predios = $this->predio->getPredios();
         return view('predios.consultar')
             ->with('predios', $predios);
     }
@@ -81,7 +81,7 @@ class PredioController extends Controller
             $respuesta = $this->predio->getPredio($data['IdPredio']);
 
             if (!$respuesta instanceof Predio) {
-                return redirect()->action("PredioController@index")->with('error', $respuesta);
+                return redirect()->action("PredioController@iniciaRegistrarPredio")->with('error', $respuesta);
             }
 
             $predio = $respuesta;
@@ -105,7 +105,7 @@ class PredioController extends Controller
 
             $respuesta = json_decode($this->predio->actualizarPredio($data));
 
-            return redirect()->action("PredioController@index")->with($respuesta->tipo, $respuesta->mensaje);
+            return redirect()->action("PredioController@iniciaRegistrarPredio")->with($respuesta->tipo, $respuesta->mensaje);
         }
 
         if (isset($_POST['eliminar'])) {
@@ -116,7 +116,7 @@ class PredioController extends Controller
 
             $respuesta = json_decode($this->predio->eliminarPredio($data['IdPredio']));
 
-            return redirect()->action("PredioController@index")->with($respuesta->tipo, $respuesta->mensaje);
+            return redirect()->action("PredioController@iniciaRegistrarPredio")->with($respuesta->tipo, $respuesta->mensaje);
         }
     }
 }

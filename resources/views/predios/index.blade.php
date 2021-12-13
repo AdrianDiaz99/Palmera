@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('active_reference')
+    {{ Breadcrumbs::render('predios.index') }}
+@endsection
 
 @section('content')
 

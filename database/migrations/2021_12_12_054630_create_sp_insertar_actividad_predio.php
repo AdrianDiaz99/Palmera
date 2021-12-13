@@ -17,7 +17,7 @@ class CreateSpInsertarActividadPredio extends Migration
         DB::unprepared("
             DROP PROCEDURE IF EXISTS sp_insertar_actividad_predio;
 
-            CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_actividad_predio`(
+            CREATE PROCEDURE `sp_insertar_actividad_predio`(
                 IN i_PreID CHAR(6),
                 IN i_IdActividad TEXT,
                 IN i_Frecuencia SMALLINT,

@@ -8,13 +8,6 @@
 
     <div class="container-lg mt-2">
 
-        <a 
-            href="{{route('actividades_palmeras.index')}}" 
-            class="btn btn-dark mb-3 mt-1" 
-        >
-            Regresar
-        </a>
-
         @if (\Session::has('error'))
 
             <div class="alert alert-danger">
