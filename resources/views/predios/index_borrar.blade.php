@@ -22,7 +22,8 @@
             </div>
 
         @endif
-        
+
+        {{$respuesta}}
 
         <form method="POST" action="{{ route('predios.postEvents') }}">
             @csrf
@@ -56,7 +57,7 @@
                     id="FactorLluvia"
                     placeholder="Indicador de lluvia" 
                     name="FactorLluvia" 
-                    value="@if(\Session::has('predio')){{\Session::get('predio')->getFactorLluvia()}}@endif{{isset($predio)? $predio->getFactorLluvia() : old('FactorLluvia')}}"
+                    value="{{isset($predio)? $predio->getFactorLluvia() : old('FactorLluvia')}}"
 
                 >
 
@@ -75,7 +76,7 @@
                     id="FactorHumedad"
                     placeholder="Indicador de humedad" 
                     name="FactorHumedad" 
-                    value = "@if(\Session::has('predio')){{\Session::get('predio')->getFactorHumedad()}}@endif{{isset($predio)? $predio->getFactorHumedad() : old('FactorHumedad')}}"
+                    value = "{{isset($predio)? $predio->getFactorHumedad() : old('FactorHumedad')}}"
                 >
 
                 @error('FactorHumedad')
@@ -93,7 +94,7 @@
                     id="FactorResequedad" 
                     placeholder="Indicador de resequedad" 
                     name="FactorResequedad"
-                    value = "@if(\Session::has('predio')){{\Session::get('predio')->getFactorResequedad()}}@endif{{isset($predio)? $predio->getFactorResequedad() : old('FactorResequedad')}}"
+                    value = "{{isset($predio)? $predio->getFactorResequedad() : old('FactorResequedad')}}"
                 >
 
                 @error('FactorResequedad')
@@ -112,7 +113,7 @@
                     id="Hectareas"
                     placeholder="Cantidad de hectareas" 
                     name="Hectareas"
-                    value = "@if(\Session::has('predio')){{\Session::get('predio')->getHectareas()}}@endif{{isset($predio)? $predio->getHectareas() : old('Hectareas')}}"
+                    value = "{{isset($predio)? $predio->getHectareas() : old('Hectareas')}}"
                 >
 
                 @error('Hectareas')
@@ -135,7 +136,7 @@
                     @foreach( $tiposDeSuelo as $tipoSuelo)
                         <option 
                             value="{{$tipoSuelo->getSueloId()}}" 
-                            @if(\Session::has('predio')){{\Session::get('predio')->getTipoSuelo() == $tipoSuelo->getSueloId()? 'selected' : ''}}@endif{{($tipoSuelo->getSueloId() == old('TipoSuelo') || (isset($predio)? $tipoSuelo->getSueloId() == $predio->getTipoSuelo() : false))? 'selected' : ''}}
+                            {{($tipoSuelo->getSueloId() == old('TipoSuelo') || (isset($predio)? $tipoSuelo->getSueloId() == $predio->getTipoSuelo() : false))? 'selected' : ''}}
                         >
                             {{$tipoSuelo->getSueloNombre()}}
                         </option>
@@ -162,7 +163,7 @@
                     @foreach( $categorias as $categoria)
                         <option 
                             value="{{$categoria->getId()}}" 
-                            @if(\Session::has('predio')){{\Session::get('predio')->getCategoria() == $categoria->getId()? 'selected' : ''}}@endif{{($categoria->getId() == old('Categoria') || (isset($predio)? $categoria->getId() == $predio->getCategoria() : false))? 'selected' : ''}}
+                            {{($categoria->getId() == old('Categoria') || (isset($predio)? $categoria->getId() == $predio->getCategoria() : false))? 'selected' : ''}}
                         >
                             {{$categoria->getCatNombre()}}
                         </option>

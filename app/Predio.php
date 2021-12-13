@@ -3,6 +3,7 @@
 namespace App;
 
 use App\DataBase\PredioDAO;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -25,8 +26,10 @@ class Predio extends Model
     private Palmera $palmera;
 
 
-    public function __construct()
+    public function __construct(array $attributes = array())
     {
+
+        parent::__construct($attributes);
 
         $this->dao   = new PredioDAO();
         $this->categoria   = new Categoria();
@@ -170,8 +173,44 @@ class Predio extends Model
         return $this->hasMany(Palmera::class, 'Predio');
     }
 
+    public function agregarPredio(Predio $predio)
+    {
+        if ($predio->Categoria == 2) {
+            return $this->dao->agregarPredio($predio);
+        }
+
+        $categoria = $predio->validarCategoria();
+
+        if ($categoria == "Organico") {
+            return $this->dao->agregarPredio($predio);
+        }
+
+        return json_encode(
+            array(
+                "tipo" => "error",
+                "mensaje" => "No se registro el predio. El servicio de autorización de predios organicos catalogó el predio como \"No Organicó\""
+            )
+        );
+    }
+
     public function validarCategoria()
     {
+
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json'
+        ])->post('https://localhost:44348/api/Default/', [
+            'body' => '
+                {
+                    "PreTipoSuelo" : "' . $this->PreTipoSuelo . '",
+                    "PreFactorLluvia" : "' . $this->PreFactorLluvia . '",
+                    "PreFactorHumedad" : "' . $this->PreFactorHumedad . '",
+                    "PreFactorResequedad" : "' . $this->PreFactorResequedad . '",
+                    "PreHectareas" : "' . $this->PreHectareas . '"
+                }
+            '
+        ]);
+
+        return $response->json();
     }
 
     /**Funciones correspondientes al dominio del problema*/

@@ -22,8 +22,8 @@ class PredioController extends Controller
     {
 
         $categorias = $this->predio->getCategorias();
-        $tipoDeSuelo = $this->predio->getTiposDeSuelo();
-        return view('predios.index', compact('categorias', 'tiposSuelo'));
+        $tiposDeSuelo = $this->predio->getTiposDeSuelo();
+        return view('predios.index', compact('categorias', 'tiposDeSuelo'));
     }
 
     public function consultar()
@@ -47,6 +47,7 @@ class PredioController extends Controller
                 'Categoria' => 'required',
             ]);
 
+
             $predio = new Predio(
                 array(
                     "PreID" => "",
@@ -56,13 +57,19 @@ class PredioController extends Controller
                     "PreHectareas" => $data['Hectareas'],
                     "PreTipoSuelo" => $data['TipoSuelo'],
                     "Categoria" => $data['Categoria'],
-                    "EmpleadoAlta" => Auth::user()->Empleado->getId(),
+                    "EmpleadoAlta" => Auth::user()->Empleado->getId()
                 )
             );
 
             $respuesta = json_decode($this->predio->agregarPredio($predio));
 
-            return redirect()->action("PredioController@index")->with($respuesta->tipo, $respuesta->mensaje);
+            if ($respuesta->tipo != 'error')
+                return redirect()->action("PredioController@iniciaRegistrarPredio")
+                    ->with($respuesta->tipo, $respuesta->mensaje);
+
+            return redirect()->action("PredioController@iniciaRegistrarPredio")
+                ->with($respuesta->tipo, $respuesta->mensaje)
+                ->with('predio', $predio);
         }
 
         if (isset($_POST['recuperar'])) {
@@ -95,7 +102,6 @@ class PredioController extends Controller
                 'TipoSuelo' => 'required',
                 'Categoria' => 'required'
             ]);
-
 
             $respuesta = json_decode($this->modelo->actualizarPredio($data));
 

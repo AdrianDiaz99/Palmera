@@ -26,30 +26,6 @@ class DataBase extends DB
         return DB::select("CALL sp_eliminar_predios('$id')")[0];
     }
 
-    public function agregarPredio($predio)
-    {
-
-        try {
-
-            $idPredio = $this->obtenerUltimoId("Predios");
-            $predio->setPreID($idPredio);
-            $predio->saveOrFail();
-
-            $respuesta = array(
-                "tipo" => "message",
-                "mensaje" => "Predio insertado correctamente con el ID \"$idPredio\""
-            );
-        } catch (Exception $e) {
-
-            $respuesta = array(
-                "tipo" => "error",
-                "mensaje" => "Error al insertar predio \n\nDetalle del error: {$e->getMessage()}"
-            );
-        }
-
-        return json_encode($respuesta);
-    }
-
     public function actualizarPredio($predio)
     {
         try {
@@ -77,7 +53,6 @@ class DataBase extends DB
 
     public function obtenerUltimoId($nombreTabla)
     {
-
         return DB::select("CALL sp_obtener_id('$nombreTabla')")[0]->v_idSiguiente;
     }
 

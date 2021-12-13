@@ -45,10 +45,6 @@ class PredioModel extends Model
         return $this->dataBase->getPredio($id);
     }
 
-    public function agregarPredio(Predio $predio)
-    {
-        return $this->dataBase->agregarPredio($predio);
-    }
 
     public function actualizarPredio($data)
     {
